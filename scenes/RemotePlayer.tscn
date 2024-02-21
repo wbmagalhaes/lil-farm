@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ke3hi2g8uje6"]
+[gd_scene load_steps=10 format=3 uid="uid://joaun36thx6a"]
 
-[ext_resource type="Script" path="res://scripts/player_movement.gd" id="1_xsnom"]
-[ext_resource type="Texture2D" uid="uid://b58mcy8ec1eav" path="res://assets/character/Basic Charakter Spritesheet.png" id="2_jdmjs"]
+[ext_resource type="Script" path="res://scripts/network_player.gd" id="1_i7jg2"]
+[ext_resource type="Texture2D" uid="uid://b58mcy8ec1eav" path="res://assets/character/Basic Charakter Spritesheet.png" id="2_jy00p"]
 
 [sub_resource type="Animation" id="Animation_uu6to"]
 length = 0.001
@@ -112,19 +112,14 @@ _data = {
 "run_up": SubResource("Animation_6bghv")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_onm0j"]
-radius = 4.0
-height = 28.0
-
-[node name="Player" type="CharacterBody2D"]
+[node name="RemotePlayer" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_xsnom")
-speed = 50
+script = ExtResource("1_i7jg2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(7.15256e-07, -4.76837e-07)
-texture = ExtResource("2_jdmjs")
+texture = ExtResource("2_jy00p")
 hframes = 4
 vframes = 4
 frame = 1
@@ -133,17 +128,3 @@ frame = 1
 libraries = {
 "": SubResource("AnimationLibrary_dsobc")
 }
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
-rotation = 1.5708
-scale = Vector2(0.5, 0.5)
-shape = SubResource("CapsuleShape2D_onm0j")
-debug_color = Color(0, 0.6, 0.701961, 0.419608)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-process_callback = 0
-limit_smoothed = true
-position_smoothing_enabled = true
-editor_draw_limits = true

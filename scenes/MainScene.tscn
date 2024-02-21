@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bt150igu3fykx"]
+
+[ext_resource type="PackedScene" uid="uid://mwy4jrhxqb30" path="res://scenes/GameMap.tscn" id="1_eidhb"]
+[ext_resource type="PackedScene" uid="uid://ke3hi2g8uje6" path="res://scenes/Player.tscn" id="2_fyp8p"]
+[ext_resource type="PackedScene" uid="uid://dxips61cuxkuj" path="res://scenes/ChatBox.tscn" id="3_7egp1"]
+
+[node name="Level" type="Node2D"]
+y_sort_enabled = true
+
+[node name="GameMap" parent="." instance=ExtResource("1_eidhb")]
+z_index = -1
+y_sort_enabled = true
+
+[node name="ChatBox" parent="." instance=ExtResource("3_7egp1")]
+
+[node name="Player" parent="." instance=ExtResource("2_fyp8p")]
+position = Vector2(52, -83)

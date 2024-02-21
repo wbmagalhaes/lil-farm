@@ -1,28 +1,35 @@
 extends Node
 
-var websocket_url = "ws://localhost:8080/ws/"
+const websocket_url = "ws://localhost:8080/ws/"
 
-signal join_command_received(player_data: Dictionary, is_local_player: bool)
+signal tick_command_received(time: Dictionary, delta_time: int)
+signal join_command_received(player_data: Dictionary)
 signal load_players_command_received(players_data: Array)
 signal chat_command_received(player_id: int, message: String)
+signal move_command_received(player_id: int, move_data: Dictionary)
 signal kick_command_received(player_id: int)
 
 var _socket = WebSocketPeer.new()
 
 var _local_player_id: int;
-var _connected_players: Dictionary = {}
+var _local_player_data: Dictionary;
 
 func _ready():
-	_local_player_id = randi_range(1, 10)
+	# TODO: get token and id from auth
+	var token = "123456"
+	_local_player_id = 0
 
-	var socket_url = "%s%d" % [websocket_url, _local_player_id]
+	var socket_url = "%s%s" % [websocket_url, token]
 	_socket.connect_to_url(socket_url)
 
 func _process(_delta):
 	_socket.poll()
 	var state = _socket.get_ready_state()
 
-	if state == WebSocketPeer.STATE_OPEN:
+	if state == WebSocketPeer.STATE_CONNECTING:
+		print("Connecting...")
+		
+	elif state == WebSocketPeer.STATE_OPEN:
 		while _socket.get_available_packet_count():
 			var packet =  _socket.get_packet()
 			var payload = packet.get_string_from_utf8()
@@ -31,6 +38,7 @@ func _process(_delta):
 
 	elif state == WebSocketPeer.STATE_CLOSING:
 		pass
+		
 	elif state == WebSocketPeer.STATE_CLOSED:
 		var code = _socket.get_close_code()
 		var reason = _socket.get_close_reason()
@@ -49,17 +57,32 @@ func _parse_payload(payload: String):
 	_parse_command(command, from, body)
 
 func _parse_command(command, from, body):
-	if command == "Join":
+	if command == "Tick":
+		_process_tick_command(body)
+	elif command == "Join":
 		_process_join_command(body)
 	elif command == "LoadPlayers":
 		_process_load_players_command(body)
 	elif command == "Chat":
 		_process_chat_command(from, body)
+	elif command == "Move":
+		_process_move_command(from, body)
 	elif command == "Kick":
 		_process_kick_command(body)
 	else:
 		print("Command: ", command)
 		print("Body:", body)
+
+func _process_tick_command(body):
+	var json_object = JSON.new()
+	var _parse_err = json_object.parse(body)
+	var tick_data = json_object.data
+	
+	var datetime_string = tick_data.get("time")
+	var time = Time.get_datetime_dict_from_datetime_string(datetime_string, false)
+	var delta_time = int(tick_data.get("delta_time"))
+
+	tick_command_received.emit(time, delta_time)
 
 func _process_join_command(body):
 	var json_object = JSON.new()
@@ -67,24 +90,21 @@ func _process_join_command(body):
 	var player_data = json_object.data
 
 	var player_id = int(player_data.get("id"))
-	_connected_players[player_id] = player_data
+	
+	if _local_player_id == 0:
+		_local_player_id = player_id
 
 	var is_local = player_id == _local_player_id
-	join_command_received.emit(player_data, is_local)
+
+	if not is_local:
+		join_command_received.emit(player_data)
+	else:
+		_local_player_data = player_data
 
 func _process_load_players_command(body):
 	var json_object = JSON.new()
 	var _parse_err = json_object.parse(body)
-	var players_data = json_object.data
-
-	var remote_players = []
-	for player_data in players_data:
-		var player_id = int(player_data.get("id"))
-		_connected_players[player_id] = player_data
-
-		var is_local = player_id == _local_player_id
-		if not is_local:
-			remote_players.append(player_data)
+	var remote_players = json_object.data
 
 	load_players_command_received.emit(remote_players)
 
@@ -92,17 +112,58 @@ func _process_chat_command(from, body):
 	var player_id = int(from.get("PlayerId"))
 	chat_command_received.emit(player_id, body)
 
+func _process_move_command(from, body):
+	var player_id = int(from.get("PlayerId"))
+
+	var json_object = JSON.new()
+	var _parse_err = json_object.parse(body)
+	var move_data = json_object.data
+
+	move_command_received.emit(player_id, move_data)
+
 func _process_kick_command(body):
 	var player_id = int(body)
 	kick_command_received.emit(player_id)
-	_connected_players.erase(player_id)
 
 func send_chat_command(message):
-	var chat_command = """
-		{
-			"to": "All",
-			"command": "Chat",
-			"body": "%s"
-		}
-	""" % [message]
+	var state = _socket.get_ready_state()
+	if state != WebSocketPeer.STATE_OPEN:
+		return
+
+	var chat_command = """{
+		"to": "All",
+		"command": "Chat",
+		"body": "%s"
+	}""" % [message.json_escape()]
 	_socket.send_text(chat_command)
+
+func send_move_command(position, direction, animation):
+	var state = _socket.get_ready_state()
+	if state != WebSocketPeer.STATE_OPEN:
+		return
+
+	var position_string = """{
+		"x": %s,
+		"y": %s
+	}""" % [position.x, position.y] if position else "null"
+
+	var move_body = """{
+		"position": %s,
+		"direction": "%s",
+		"animation": "%s"
+	}""" % [position_string, direction, animation]
+
+	var move_command = """{
+		"to": "All",
+		"command": "Move",
+		"body": "%s"
+	}""" % [move_body.json_escape()]
+
+	_socket.send_text(move_command)
+
+func get_player_name(player_id):
+	if player_id == _local_player_id:
+		return _local_player_data.get("name")
+	
+	return NetworkPlayerFactory.get_remote_player_name(player_id)
+	

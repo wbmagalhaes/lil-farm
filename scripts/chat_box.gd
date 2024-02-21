@@ -3,25 +3,12 @@ extends CanvasLayer
 @onready var input_field = $Panel/VBoxContainer/LineEdit
 @onready var chat_log = $Panel/VBoxContainer/RichTextLabel
 
-var _players = {
-	1: "Jorge",
-	2: "Mario",
-	3: "Carlos",
-	4: "Pedro",
-	5: "Gabriel",
-	6: "Matheus",
-	7: "Luiz",
-	8: "Rafael",
-	9: "Felipe",
-	10: "Bruno",
-}
-
 func _ready():
 	chat_log.set_text("")
 	input_field.connect("text_submitted", self.on_text_submitted)
-	NetworkManager.connect('join_command_received', self._on_join_command_received)
 	NetworkManager.connect('chat_command_received', self._on_chat_command_received)
-	NetworkManager.connect('kick_command_received', self._on_kick_command_received)
+	NetworkPlayerFactory.connect('player_added', self._on_player_added)
+	NetworkPlayerFactory.connect('player_removed', self._on_player_removed)
 
 func _process(_delta):
 	pass
@@ -45,13 +32,13 @@ func on_text_submitted(text):
 	input_field.release_focus()
 	input_field.text = ''
 
-func _on_join_command_received(player_data: Dictionary, _is_local_player: bool):
-	add_message("System", "%s joined the game." % player_data.name)
-
 func _on_chat_command_received(player_id: int, message: String):
-	var player_name = _players.get(player_id)
+	var player_name = NetworkManager.get_player_name(player_id)
 	add_message(player_name, message)
 
-func _on_kick_command_received(player_id: int):
-	var player_name = _players.get(player_id)
+func _on_player_added(player_name: String, join_player: bool):
+	if join_player:
+		add_message("System", "%s joined the game." % player_name)
+
+func _on_player_removed(player_name: String):
 	add_message("System", "%s left the game." % player_name)
