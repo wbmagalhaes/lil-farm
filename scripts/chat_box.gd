@@ -7,6 +7,8 @@ func _ready():
 	chat_log.set_text("")
 	input_field.connect("text_submitted", self.on_text_submitted)
 	NetworkManager.connect('chat_command_received', self._on_chat_command_received)
+	
+	NetworkManager.connect('join_command_received', self._on_join_command_received)
 	NetworkPlayerFactory.connect('player_added', self._on_player_added)
 	NetworkPlayerFactory.connect('player_removed', self._on_player_removed)
 
@@ -35,6 +37,11 @@ func on_text_submitted(text):
 func _on_chat_command_received(player_id: int, message: String):
 	var player_name = NetworkManager.get_player_name(player_id)
 	add_message(player_name, message)
+
+func _on_join_command_received(player_data: Dictionary, local_player: bool):
+	if local_player:
+		var player_name = player_data.get("name")
+		add_message("System", "Welcome, %s!" % player_name)
 
 func _on_player_added(player_name: String, join_player: bool):
 	if join_player:

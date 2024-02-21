@@ -40,8 +40,9 @@ func get_remote_player_name(player_id: int):
 
 	return remote_player.player_name
 
-func _on_join_command_received(player_data: Dictionary):
-	spawn_network_player(player_data, true)
+func _on_join_command_received(player_data: Dictionary, local_player: bool):
+	if not local_player:
+		spawn_network_player(player_data, true)
 
 func _on_load_players_command_received(players_data: Array):
 	for player_data in players_data:

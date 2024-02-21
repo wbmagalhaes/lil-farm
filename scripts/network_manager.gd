@@ -3,7 +3,7 @@ extends Node
 const websocket_url = "ws://localhost:8080/ws/"
 
 signal tick_command_received(time: Dictionary, delta_time: int)
-signal join_command_received(player_data: Dictionary)
+signal join_command_received(player_data: Dictionary, is_local: bool)
 signal load_players_command_received(players_data: Array)
 signal chat_command_received(player_id: int, message: String)
 signal move_command_received(player_id: int, move_data: Dictionary)
@@ -28,7 +28,7 @@ func _process(_delta):
 
 	if state == WebSocketPeer.STATE_CONNECTING:
 		print("Connecting...")
-		
+
 	elif state == WebSocketPeer.STATE_OPEN:
 		while _socket.get_available_packet_count():
 			var packet =  _socket.get_packet()
@@ -77,7 +77,7 @@ func _process_tick_command(body):
 	var json_object = JSON.new()
 	var _parse_err = json_object.parse(body)
 	var tick_data = json_object.data
-	
+
 	var datetime_string = tick_data.get("time")
 	var time = Time.get_datetime_dict_from_datetime_string(datetime_string, false)
 	var delta_time = int(tick_data.get("delta_time"))
@@ -95,11 +95,10 @@ func _process_join_command(body):
 		_local_player_id = player_id
 
 	var is_local = player_id == _local_player_id
-
-	if not is_local:
-		join_command_received.emit(player_data)
-	else:
+	if is_local:
 		_local_player_data = player_data
+
+	join_command_received.emit(player_data, is_local)
 
 func _process_load_players_command(body):
 	var json_object = JSON.new()

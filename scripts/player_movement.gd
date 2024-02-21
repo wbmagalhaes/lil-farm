@@ -46,4 +46,5 @@ func _physics_process(_delta: float) -> void:
 	send_move_update()
 
 func send_move_update():
+	# TODO: only send if changed from previous frame
 	NetworkManager.send_move_command(current_position, current_direction, current_animation)

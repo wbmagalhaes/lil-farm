@@ -14,4 +14,3 @@ y_sort_enabled = true
 [node name="ChatBox" parent="." instance=ExtResource("3_7egp1")]
 
 [node name="Player" parent="." instance=ExtResource("2_fyp8p")]
-position = Vector2(52, -83)
