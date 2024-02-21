@@ -45,7 +45,7 @@ func on_text_submitted(text):
 	input_field.release_focus()
 	input_field.text = ''
 
-func _on_join_command_recieved(player_data: Dictionary):
+func _on_join_command_recieved(player_data: Dictionary, _is_local_player: bool):
 	add_message("System", "%s joined the game." % player_data.name)
 
 func _on_chat_command_recieved(player_id: int, message: String):
