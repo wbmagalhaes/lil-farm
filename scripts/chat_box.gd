@@ -19,9 +19,9 @@ var _players = {
 func _ready():
 	chat_log.set_text("")
 	input_field.connect("text_submitted", self.on_text_submitted)
-	NetworkManager.connect('join_command_recieved', self._on_join_command_recieved)
-	NetworkManager.connect('chat_command_recieved', self._on_chat_command_recieved)
-	NetworkManager.connect('kick_command_recieved', self._on_kick_command_recieved)
+	NetworkManager.connect('join_command_received', self._on_join_command_received)
+	NetworkManager.connect('chat_command_received', self._on_chat_command_received)
+	NetworkManager.connect('kick_command_received', self._on_kick_command_received)
 
 func _process(_delta):
 	pass
@@ -45,13 +45,13 @@ func on_text_submitted(text):
 	input_field.release_focus()
 	input_field.text = ''
 
-func _on_join_command_recieved(player_data: Dictionary, _is_local_player: bool):
+func _on_join_command_received(player_data: Dictionary, _is_local_player: bool):
 	add_message("System", "%s joined the game." % player_data.name)
 
-func _on_chat_command_recieved(player_id: int, message: String):
+func _on_chat_command_received(player_id: int, message: String):
 	var player_name = _players.get(player_id)
 	add_message(player_name, message)
 
-func _on_kick_command_recieved(player_id: int):
+func _on_kick_command_received(player_id: int):
 	var player_name = _players.get(player_id)
 	add_message("System", "%s left the game." % player_name)

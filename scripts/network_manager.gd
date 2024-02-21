@@ -2,10 +2,10 @@ extends Node
 
 var websocket_url = "ws://localhost:8080/ws/"
 
-signal join_command_recieved(player_data: Dictionary, is_local_player: bool)
-signal load_players_command_recieved(players_data: Array)
-signal chat_command_recieved(player_id: int, message: String)
-signal kick_command_recieved(player_id: int)
+signal join_command_received(player_data: Dictionary, is_local_player: bool)
+signal load_players_command_received(players_data: Array)
+signal chat_command_received(player_id: int, message: String)
+signal kick_command_received(player_id: int)
 
 var _socket = WebSocketPeer.new()
 
@@ -26,7 +26,7 @@ func _process(_delta):
 		while _socket.get_available_packet_count():
 			var packet =  _socket.get_packet()
 			var payload = packet.get_string_from_utf8()
-			
+
 			_parse_payload(payload)
 
 	elif state == WebSocketPeer.STATE_CLOSING:
@@ -65,12 +65,12 @@ func _process_join_command(body):
 	var json_object = JSON.new()
 	var _parse_err = json_object.parse(body)
 	var player_data = json_object.data
-	
+
 	var player_id = int(player_data.get("id"))
 	_connected_players[player_id] = player_data
-	
+
 	var is_local = player_id == _local_player_id
-	join_command_recieved.emit(player_data, is_local)
+	join_command_received.emit(player_data, is_local)
 
 func _process_load_players_command(body):
 	var json_object = JSON.new()
@@ -86,15 +86,15 @@ func _process_load_players_command(body):
 		if not is_local:
 			remote_players.append(player_data)
 
-	load_players_command_recieved.emit(remote_players)
+	load_players_command_received.emit(remote_players)
 
 func _process_chat_command(from, body):
 	var player_id = int(from.get("PlayerId"))
-	chat_command_recieved.emit(player_id, body)
+	chat_command_received.emit(player_id, body)
 
 func _process_kick_command(body):
 	var player_id = int(body)
-	kick_command_recieved.emit(player_id)
+	kick_command_received.emit(player_id)
 	_connected_players.erase(player_id)
 
 func send_chat_command(message):
