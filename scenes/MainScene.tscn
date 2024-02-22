@@ -8,8 +8,6 @@
 y_sort_enabled = true
 
 [node name="GameMap" parent="." instance=ExtResource("1_eidhb")]
-z_index = -1
-y_sort_enabled = true
 
 [node name="ChatBox" parent="." instance=ExtResource("3_7egp1")]
 
