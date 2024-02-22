@@ -7,7 +7,7 @@ func _ready():
 	chat_log.set_text("")
 	input_field.connect("text_submitted", self.on_text_submitted)
 	NetworkManager.connect('chat_command_received', self._on_chat_command_received)
-	
+
 	NetworkManager.connect('join_command_received', self._on_join_command_received)
 	NetworkPlayerFactory.connect('player_added', self._on_player_added)
 	NetworkPlayerFactory.connect('player_removed', self._on_player_removed)

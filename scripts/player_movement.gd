@@ -41,7 +41,7 @@ func _physics_process(_delta: float) -> void:
 	get_input()
 	set_animation()
 	move_and_slide()
-	
+
 	current_position = get_position()
 	send_move_update()
 

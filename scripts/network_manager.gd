@@ -38,7 +38,7 @@ func _process(_delta):
 
 	elif state == WebSocketPeer.STATE_CLOSING:
 		pass
-		
+
 	elif state == WebSocketPeer.STATE_CLOSED:
 		var code = _socket.get_close_code()
 		var reason = _socket.get_close_reason()
@@ -90,7 +90,7 @@ func _process_join_command(body):
 	var player_data = json_object.data
 
 	var player_id = int(player_data.get("id"))
-	
+
 	if _local_player_id == 0:
 		_local_player_id = player_id
 
@@ -163,6 +163,6 @@ func send_move_command(position, direction, animation):
 func get_player_name(player_id):
 	if player_id == _local_player_id:
 		return _local_player_data.get("name")
-	
+
 	return NetworkPlayerFactory.get_remote_player_name(player_id)
-	
+
