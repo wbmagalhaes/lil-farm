@@ -1,53 +1,36 @@
-extends Node2D
-
 class_name RemotePlayer
+extends Node2D
 
 @onready var animation = $AnimationPlayer
 
-var remote_player_id: int
+var data: PlayerData
 
-var player_name: String
-var player_color: String
-
-func _ready():
-	NetworkManager.connect('move_command_received', self._on_move_command_received)
-
-func initialize(player_data: Dictionary):
+func initialize(player_data: PlayerData):
 	animation = $AnimationPlayer
 
-	remote_player_id = int(player_data.get("id"))
-	player_name = player_data.get("name")
-	player_color = player_data.get("color")
+	data = player_data
 
-	update_position(player_data.get("position"))
-	update_direction(player_data.get("direction"))
-	update_animation(player_data.get("animation"))
+	update_position(player_data.position)
+	update_direction(player_data.direction)
+	update_animation(player_data.animation)
 
-func update_position(pos):
-	if pos == null:
+func update_position(pos: Vector2):
+	if not pos:
 		return
 
-	var x = pos.get("x")
-	var y = pos.get("y")
-	set_position(Vector2(x, y))
+	set_position(pos)
 
-func update_direction(dir):
-	if dir == null:
+func update_direction(dir: String):
+	if not dir:
 		return
 
-func update_animation(anim):
-	if anim == null:
+	pass
+
+func update_animation(anim: String):
+	if not anim:
 		return
 
 	animation.play(anim)
 
 func destroy():
 	queue_free()
-
-func _on_move_command_received(player_id: int, move_data: Dictionary):
-	if player_id != remote_player_id:
-		return
-
-	update_position(move_data.get("position"))
-	update_direction(move_data.get("direction"))
-	update_animation(move_data.get("animation"))

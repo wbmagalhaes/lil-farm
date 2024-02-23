@@ -38,10 +38,9 @@ func _on_chat_command_received(player_id: int, message: String):
 	var player_name = NetworkManager.get_player_name(player_id)
 	add_message(player_name, message)
 
-func _on_join_command_received(player_data: Dictionary, local_player: bool):
+func _on_join_command_received(player_data: PlayerData, local_player: bool):
 	if local_player:
-		var player_name = player_data.get("name")
-		add_message("System", "Welcome, %s!" % player_name)
+		add_message("System", "Welcome, %s!" % player_data.name)
 
 func _on_player_added(player_name: String, join_player: bool):
 	if join_player:

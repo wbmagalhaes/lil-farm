@@ -1,33 +1,35 @@
 extends Node
 
-const websocket_url = "ws://localhost:8080/ws/"
+const websocket_url = "ws://127.0.0.1:8080/join/"
 
-signal tick_command_received(time: Dictionary, delta_time: int)
-signal join_command_received(player_data: Dictionary, is_local: bool)
-signal load_players_command_received(players_data: Array)
+signal tick_command_received(tick_data: TickData)
+signal join_command_received(player_data: PlayerData, is_local: bool)
+signal load_players_command_received(players_data: Array[PlayerData])
 signal chat_command_received(player_id: int, message: String)
-signal move_command_received(player_id: int, move_data: Dictionary)
+signal move_command_received(player_id: int, move_data: MoveData)
 signal kick_command_received(player_id: int)
 
 var _socket = WebSocketPeer.new()
 
 var _local_player_id: int;
-var _local_player_data: Dictionary;
+var _local_player_data: PlayerData;
 
 func _ready():
 	# TODO: get token and id from auth
 	var token = "123456"
 	_local_player_id = 0
 
-	var socket_url = "%s%s" % [websocket_url, token]
-	_socket.connect_to_url(socket_url)
+	var url = "%s%s" % [websocket_url, token]
+	_socket.connect_to_url(url)
 
 func _process(_delta):
 	_socket.poll()
+
 	var state = _socket.get_ready_state()
 
 	if state == WebSocketPeer.STATE_CONNECTING:
 		print("Connecting...")
+		pass
 
 	elif state == WebSocketPeer.STATE_OPEN:
 		while _socket.get_available_packet_count():
@@ -43,7 +45,7 @@ func _process(_delta):
 		var code = _socket.get_close_code()
 		var reason = _socket.get_close_reason()
 		print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
-		set_process(false) # Stop processing.
+		set_process(false)
 
 func _parse_payload(payload: String):
 	var json_object = JSON.new()
@@ -76,25 +78,22 @@ func _parse_command(command, from, body):
 func _process_tick_command(body):
 	var json_object = JSON.new()
 	var _parse_err = json_object.parse(body)
-	var tick_data = json_object.data
+	var raw_data = json_object.data
 
-	var datetime_string = tick_data.get("time")
-	var time = Time.get_datetime_dict_from_datetime_string(datetime_string, false)
-	var delta_time = int(tick_data.get("delta_time"))
-
-	tick_command_received.emit(time, delta_time)
+	var tick_data = TickData.new(raw_data)
+	tick_command_received.emit(tick_data)
 
 func _process_join_command(body):
 	var json_object = JSON.new()
 	var _parse_err = json_object.parse(body)
-	var player_data = json_object.data
+	var raw_data = json_object.data
 
-	var player_id = int(player_data.get("id"))
+	var player_data = PlayerData.new(raw_data)
 
 	if _local_player_id == 0:
-		_local_player_id = player_id
+		_local_player_id = player_data.id
 
-	var is_local = player_id == _local_player_id
+	var is_local = player_data.id == _local_player_id
 	if is_local:
 		_local_player_data = player_data
 
@@ -103,9 +102,12 @@ func _process_join_command(body):
 func _process_load_players_command(body):
 	var json_object = JSON.new()
 	var _parse_err = json_object.parse(body)
-	var remote_players = json_object.data
 
-	load_players_command_received.emit(remote_players)
+	var players_data: Array[PlayerData] = []
+	for d in json_object.data:
+		players_data.append(PlayerData.new(d))
+
+	load_players_command_received.emit(players_data)
 
 func _process_chat_command(from, body):
 	var player_id = int(from.get("PlayerId"))
@@ -116,8 +118,8 @@ func _process_move_command(from, body):
 
 	var json_object = JSON.new()
 	var _parse_err = json_object.parse(body)
-	var move_data = json_object.data
 
+	var move_data = MoveData.new(json_object.data)
 	move_command_received.emit(player_id, move_data)
 
 func _process_kick_command(body):
@@ -136,7 +138,7 @@ func send_chat_command(message):
 	}""" % [message.json_escape()]
 	_socket.send_text(chat_command)
 
-func send_move_command(position, direction, animation):
+func send_move_command(position: Vector2, direction: String, animation: String):
 	var state = _socket.get_ready_state()
 	if state != WebSocketPeer.STATE_OPEN:
 		return
