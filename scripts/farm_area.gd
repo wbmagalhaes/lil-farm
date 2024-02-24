@@ -37,7 +37,7 @@ func tile_is_farmable(coord: Vector2i) -> bool:
 
 func till_soil(tile_coord: Vector2i) -> void:
 	farm_tilemap.set_cell(
-		PLANTS_LAYER, 
+		PLANTS_LAYER,
 		tile_coord,
 		TILLED_SOIL_SOURCE_ID,
 		TILLED_SOIL_TILE_COORD,
