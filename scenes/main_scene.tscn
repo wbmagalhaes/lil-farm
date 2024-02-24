@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt150igu3fykx"]
+
+[ext_resource type="PackedScene" uid="uid://mwy4jrhxqb30" path="res://scenes/world_map.tscn" id="1_4dlq7"]
+[ext_resource type="PackedScene" uid="uid://dxips61cuxkuj" path="res://scenes/chat_box.tscn" id="2_skeb1"]
+[ext_resource type="PackedScene" uid="uid://ke3hi2g8uje6" path="res://scenes/player.tscn" id="3_s5sdu"]
+[ext_resource type="PackedScene" uid="uid://cwlmp2hwmb0ch" path="res://scenes/action_pointer.tscn" id="4_mwnhq"]
+
+[node name="level" type="Node2D"]
+y_sort_enabled = true
+
+[node name="world_map" parent="." instance=ExtResource("1_4dlq7")]
+
+[node name="chat_box" parent="." instance=ExtResource("2_skeb1")]
+
+[node name="player" parent="." instance=ExtResource("3_s5sdu")]
+
+[node name="action_pointer" parent="." instance=ExtResource("4_mwnhq")]
