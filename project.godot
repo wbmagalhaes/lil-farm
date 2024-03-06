@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Env="*res://scripts/utils/env.gd"
 NetworkManager="*res://scripts/network/network_manager.gd"
 NetworkPlayerFactory="*res://scripts/network/network_player_factory.gd"
 

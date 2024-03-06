@@ -1,7 +1,5 @@
 extends Node
 
-const WEBSOCKET_URL = "ws://127.0.0.1:8080/join/"
-
 signal tick_command_received(tick_data: TickData)
 signal join_command_received(player_data: PlayerData, is_local: bool)
 signal load_players_command_received(players_data: Array[PlayerData])
@@ -19,7 +17,8 @@ func _ready():
 	var token = "123456"
 	_local_player_id = 0
 
-	var url = "%s%s" % [WEBSOCKET_URL, token]
+	var websocket_base_url = Env.get_variable("WEBSOCKET_URL")
+	var url = "%sjoin/%s" % [websocket_base_url, token]
 	_socket.connect_to_url(url)
 
 func _process(_delta):
