@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dxips61cuxkuj"]
 
-[ext_resource type="Script" path="res://scripts/chat_box.gd" id="1_mklxm"]
+[ext_resource type="Script" path="res://scripts/ui/chat_box.gd" id="1_8ywf4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv5qx"]
 bg_color = Color(0.0980392, 0.101961, 0.301961, 1)
@@ -8,32 +8,39 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
-expand_margin_left = 4.0
-expand_margin_top = 4.0
-expand_margin_right = 4.0
-expand_margin_bottom = 4.0
 
-[node name="CanvasLayer" type="CanvasLayer"]
-layer = 100
-script = ExtResource("1_mklxm")
-metadata/_edit_use_anchors_ = true
-
-[node name="Panel" type="Panel" parent="."]
-offset_left = 9.0
-offset_top = 9.0
-offset_right = 609.0
-offset_bottom = 259.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_lv5qx")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 1
+[node name="chat_box" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_8ywf4")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 612.0
+offset_bottom = 262.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lv5qx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "[time] message
@@ -44,5 +51,6 @@ fit_content = true
 scroll_following = true
 
 [node name="LineEdit" type="LineEdit" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Write message..."

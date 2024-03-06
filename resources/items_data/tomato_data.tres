@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://3l3nr6hcon42"]
+
+[ext_resource type="PackedScene" uid="uid://sfjbjrbydh45" path="res://scenes/items/tomato.tscn" id="1_hqsqv"]
+[ext_resource type="Script" path="res://scripts/items/item_data.gd" id="2_ov4ge"]
+
+[resource]
+script = ExtResource("2_ov4ge")
+name = "Tomato"
+scene = ExtResource("1_hqsqv")

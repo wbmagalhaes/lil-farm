@@ -1,13 +1,11 @@
 class_name RemotePlayer
 extends Node2D
 
-@onready var animation = $AnimationPlayer
+@export var animation: AnimationPlayer
 
 var data: PlayerData
 
 func initialize(player_data: PlayerData):
-	animation = $AnimationPlayer
-
 	data = player_data
 
 	update_position(player_data.position)

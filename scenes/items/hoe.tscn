@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://rs6yis2t2usc"]
+
+[ext_resource type="Texture2D" uid="uid://datcaegf8ta5o" path="res://assets/objects/Tools.png" id="1_6xgtg"]
+
+[node name="hoe" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(2, 2)
+texture = ExtResource("1_6xgtg")
+hframes = 6
+vframes = 6
+frame = 25

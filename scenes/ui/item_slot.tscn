@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://blgfkf6kd4l21"]
+
+[ext_resource type="Script" path="res://scripts/ui/item_slot.gd" id="1_m1cwo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8crrw"]
+bg_color = Color(0.615686, 0.517647, 0.407843, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[node name="item_slot" type="PanelContainer"]
+custom_minimum_size = Vector2(56, 56)
+offset_right = 192.0
+offset_bottom = 192.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8crrw")
+script = ExtResource("1_m1cwo")

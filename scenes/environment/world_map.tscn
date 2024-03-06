@@ -1,17 +1,17 @@
 [gd_scene load_steps=26 format=3 uid="uid://mwy4jrhxqb30"]
 
-[ext_resource type="Texture2D" uid="uid://bkxmkdru31uog" path="res://assets/tilesets/Water.png" id="1_0iokh"]
-[ext_resource type="Script" path="res://scripts/world_map.gd" id="1_ikpx7"]
-[ext_resource type="Texture2D" uid="uid://b3k0tt4qffwcn" path="res://assets/tilesets/Grass.png" id="1_kd6fl"]
-[ext_resource type="Texture2D" uid="uid://b2s06nu58nsvv" path="res://assets/tilesets/Hills.png" id="2_d0llg"]
-[ext_resource type="Texture2D" uid="uid://bi0tx5ly553cc" path="res://assets/tilesets/Fences.png" id="5_ipf3v"]
-[ext_resource type="Texture2D" uid="uid://ksae46omk7no" path="res://assets/tilesets/Paths.png" id="6_6f4fi"]
-[ext_resource type="Texture2D" uid="uid://dp6s0dlrhcedu" path="res://assets/plants/Basic_Grass_Biom_things.png" id="7_fm6ay"]
-[ext_resource type="Texture2D" uid="uid://bhsk35vupddqw" path="res://assets/plants/Basic_Plants.png" id="8_kdi7k"]
-[ext_resource type="Texture2D" uid="uid://cyfpum2or83vi" path="res://assets/tilesets/Wood_Bridge.png" id="9_mnga1"]
-[ext_resource type="Texture2D" uid="uid://dhseoj21o1vi5" path="res://assets/tilesets/Wooden House.png" id="10_o2v32"]
-[ext_resource type="Texture2D" uid="uid://c8tmwjf4s7k7q" path="res://assets/tilesets/Free_Chicken_House.png" id="11_esjkp"]
-[ext_resource type="PackedScene" uid="uid://dr5uudo7wj1f2" path="res://scenes/farm_area.tscn" id="12_ibowy"]
+[ext_resource type="Script" path="res://scripts/environment/world_map.gd" id="1_dqret"]
+[ext_resource type="Texture2D" uid="uid://bkxmkdru31uog" path="res://assets/tilesets/Water.png" id="2_ngoxe"]
+[ext_resource type="Texture2D" uid="uid://b3k0tt4qffwcn" path="res://assets/tilesets/Grass.png" id="3_qfodb"]
+[ext_resource type="Texture2D" uid="uid://b2s06nu58nsvv" path="res://assets/tilesets/Hills.png" id="4_iac6x"]
+[ext_resource type="Texture2D" uid="uid://bi0tx5ly553cc" path="res://assets/tilesets/Fences.png" id="5_ha5i2"]
+[ext_resource type="Texture2D" uid="uid://ksae46omk7no" path="res://assets/tilesets/Paths.png" id="6_oirjp"]
+[ext_resource type="Texture2D" uid="uid://dp6s0dlrhcedu" path="res://assets/plants/Basic_Grass_Biom_things.png" id="7_c58u4"]
+[ext_resource type="Texture2D" uid="uid://bhsk35vupddqw" path="res://assets/plants/Basic_Plants.png" id="8_2c84i"]
+[ext_resource type="Texture2D" uid="uid://cyfpum2or83vi" path="res://assets/tilesets/Wood_Bridge.png" id="9_a0nyo"]
+[ext_resource type="Texture2D" uid="uid://dhseoj21o1vi5" path="res://assets/tilesets/Wooden House.png" id="10_ftf7o"]
+[ext_resource type="PackedScene" uid="uid://dr5uudo7wj1f2" path="res://scenes/environment/farm_area.tscn" id="11_mw5yk"]
+[ext_resource type="Texture2D" uid="uid://c8tmwjf4s7k7q" path="res://assets/tilesets/Free_Chicken_House.png" id="12_l3cvn"]
 
 [sub_resource type="Animation" id="Animation_7nntl"]
 length = 0.001
@@ -53,7 +53,7 @@ _data = {
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iec3w"]
 resource_name = "grass"
-texture = ExtResource("1_kd6fl")
+texture = ExtResource("3_qfodb")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -713,7 +713,7 @@ texture = ExtResource("1_kd6fl")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pxtj0"]
 resource_name = "hills"
-texture = ExtResource("2_d0llg")
+texture = ExtResource("4_iac6x")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
@@ -1354,7 +1354,7 @@ sources/1 = SubResource("TileSetAtlasSource_pxtj0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ksm7n"]
 resource_name = "fence"
-texture = ExtResource("5_ipf3v")
+texture = ExtResource("5_ha5i2")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -1486,7 +1486,7 @@ texture = ExtResource("5_ipf3v")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_68f6k"]
 resource_name = "path"
-texture = ExtResource("6_6f4fi")
+texture = ExtResource("6_oirjp")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
@@ -1556,7 +1556,7 @@ texture = ExtResource("6_6f4fi")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hjyok"]
 resource_name = "trees"
-texture = ExtResource("7_fm6ay")
+texture = ExtResource("7_c58u4")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -1695,7 +1695,7 @@ texture = ExtResource("7_fm6ay")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aoul4"]
 resource_name = "plants"
-texture = ExtResource("8_kdi7k")
+texture = ExtResource("8_2c84i")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -1735,7 +1735,7 @@ texture = ExtResource("8_kdi7k")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nylxw"]
 resource_name = "bridge"
-texture = ExtResource("9_mnga1")
+texture = ExtResource("9_a0nyo")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
@@ -1775,7 +1775,7 @@ texture = ExtResource("9_mnga1")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jks2c"]
 resource_name = "house"
-texture = ExtResource("10_o2v32")
+texture = ExtResource("10_ftf7o")
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
@@ -1938,13 +1938,13 @@ sources/5 = SubResource("TileSetAtlasSource_jks2c")
 
 [node name="world" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_ikpx7")
+script = ExtResource("1_dqret")
 
 [node name="water" type="Sprite2D" parent="."]
 z_index = -1000
 texture_repeat = 2
 position = Vector2(5, -4)
-texture = ExtResource("1_0iokh")
+texture = ExtResource("2_ngoxe")
 hframes = 4
 region_enabled = true
 region_rect = Rect2(0, 0, 5760, 1440)
@@ -1987,16 +1987,16 @@ layer_2/enabled = false
 layer_2/z_index = 10
 layer_2/tile_data = PackedInt32Array(-720891, 262149, 1, -655355, 262149, 2, -589819, 262149, 3, -524283, 262149, 3, -458747, 262149, 3, -393211, 262149, 4, -786427, 262149, 0, -786426, 327685, 0, -786425, 327685, 0, -786424, 327685, 0, -786423, 327685, 0, -786422, 327685, 0, -786421, 327685, 0, -786420, 393221, 0, -720884, 393221, 1, -655348, 393221, 2, -589812, 393221, 3, -524276, 393221, 3, -458740, 393221, 3, -393204, 393221, 4, -393205, 327685, 4, -393210, 327685, 4, -393209, 327685, 4, -393208, 327685, 4, -393207, 327685, 4, -393206, 327685, 4, -589818, 327685, 3, -524282, 327685, 3, -458746, 327685, 3, -589817, 327685, 3, -524281, 327685, 3, -458745, 327685, 3, -589816, 327685, 3, -524280, 327685, 3, -458744, 327685, 3, -589815, 327685, 3, -524279, 327685, 3, -458743, 327685, 3, -589814, 327685, 3, -524278, 327685, 3, -458742, 327685, 3, -589813, 327685, 3, -524277, 327685, 3, -458741, 327685, 3, -655354, 327685, 2, -655353, 327685, 2, -655352, 327685, 2, -655351, 327685, 2, -655350, 327685, 2, -655349, 327685, 2, -720890, 327685, 1, -720889, 327685, 1, -720888, 327685, 1, -720887, 327685, 1, -720886, 327685, 1, -720885, 327685, 1)
 
-[node name="farm_area1" parent="." instance=ExtResource("12_ibowy")]
+[node name="farm_area1" parent="." instance=ExtResource("11_mw5yk")]
 position = Vector2(-112, -128)
 
-[node name="farm_area2" parent="." instance=ExtResource("12_ibowy")]
+[node name="farm_area2" parent="." instance=ExtResource("11_mw5yk")]
 position = Vector2(0, -128)
 
 [node name="ChickenHouse" type="Sprite2D" parent="."]
 y_sort_enabled = true
 position = Vector2(-55, -280)
-texture = ExtResource("11_esjkp")
+texture = ExtResource("12_l3cvn")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="ChickenHouse"]
 

@@ -2,7 +2,7 @@ extends Node
 
 # TODO: find a better way
 @onready var _level_root = get_tree().get_root().get_child(2)
-const _base_remote_player = preload("res://scenes/remote_player.tscn")
+const _base_remote_player = preload("res://scenes/network/remote_player.tscn")
 var _remote_players: Dictionary = {}
 
 signal player_added(player_name: String, join_player: bool)

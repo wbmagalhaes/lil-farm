@@ -28,7 +28,7 @@ func _process(_delta):
 	var state = _socket.get_ready_state()
 
 	if state == WebSocketPeer.STATE_CONNECTING:
-		print("Connecting...")
+		# print("Connecting...")
 		pass
 
 	elif state == WebSocketPeer.STATE_OPEN:

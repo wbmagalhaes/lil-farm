@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dvtpu086n8m6e"]
+
+[ext_resource type="Texture2D" uid="uid://datcaegf8ta5o" path="res://assets/objects/Tools.png" id="1_kvmxc"]
+
+[node name="watering_can" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -1)
+texture = ExtResource("1_kvmxc")
+hframes = 6
+vframes = 6

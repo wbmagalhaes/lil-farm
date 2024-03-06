@@ -1,7 +1,7 @@
-extends CanvasLayer
+extends Control
 
-@onready var input_field = $Panel/VBoxContainer/LineEdit
-@onready var chat_log = $Panel/VBoxContainer/RichTextLabel
+@onready var chat_log: RichTextLabel = %RichTextLabel
+@onready var input_field: LineEdit = %LineEdit
 
 func _ready():
 	chat_log.set_text("")

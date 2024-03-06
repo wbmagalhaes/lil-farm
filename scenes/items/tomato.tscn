@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://sfjbjrbydh45"]
+
+[ext_resource type="Texture2D" uid="uid://bhsk35vupddqw" path="res://assets/plants/Basic_Plants.png" id="1_aug0r"]
+
+[node name="tomato" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_aug0r")
+hframes = 6
+vframes = 2
+frame = 11

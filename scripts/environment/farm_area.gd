@@ -2,16 +2,16 @@ class_name FarmArea
 extends Area2D
 
 @onready var world_map: WorldMap = $".."
-@onready var farm_tilemap: TileMap = $farm
+@onready var farm_tilemap: TileMap = %farm
 
-var GROUND_LAYER: int = 0
-var WATER_LAYER: int = 1
-var PLANTS_LAYER: int = 2
+const ground_layer: int = 0
+const water_layer: int = 1
+const plants_layer: int = 2
 
-var TILLED_SOIL_SOURCE_ID: int = 0
-var TILLED_SOIL_TILE_COORD: Vector2i = Vector2i(3, 4)
+const tilled_soil_source_id: int = 0
+const tilled_soil_tile_coord: Vector2i = Vector2i(3, 4)
 
-var IS_FARMABLE_DATALAYER: String = 'farmable'
+const is_farmable_datalayer: String = 'farmable'
 
 func _ready() -> void:
 	self.mouse_entered.connect(self._on_mouse_entered)
@@ -29,16 +29,16 @@ func get_hovered_tile_coord() -> Vector2i:
 
 func tile_is_farmable(coord: Vector2i) -> bool:
 	var tile_data = farm_tilemap.get_cell_tile_data(
-		GROUND_LAYER,
+		ground_layer,
 		coord,
 	)
 
-	return tile_data.get_custom_data(IS_FARMABLE_DATALAYER) if tile_data else false
+	return tile_data.get_custom_data(is_farmable_datalayer) if tile_data else false
 
 func till_soil(tile_coord: Vector2i) -> void:
 	farm_tilemap.set_cell(
-		PLANTS_LAYER,
+		plants_layer,
 		tile_coord,
-		TILLED_SOIL_SOURCE_ID,
-		TILLED_SOIL_TILE_COORD,
+		tilled_soil_source_id,
+		tilled_soil_tile_coord,
 	)
