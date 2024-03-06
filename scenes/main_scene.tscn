@@ -20,6 +20,7 @@
 y_sort_enabled = true
 
 [node name="world_map" parent="." instance=ExtResource("1_4dlq7")]
+unique_name_in_owner = true
 
 [node name="player" parent="." instance=ExtResource("3_s5sdu")]
 unique_name_in_owner = true

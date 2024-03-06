@@ -4,7 +4,7 @@ const TILE_SIZE: int = 16;
 const ACTION_INPUT: String = "click"
 
 @onready var world_map: WorldMap = $"../world_map"
-@onready var local_player: Player = "../player"
+@onready var local_player: Player = $"../player"
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
@@ -19,6 +19,8 @@ func _ready():
 
 	world_map.farm_area_hover_start.connect(self._on_farm_area_hover_start)
 	world_map.farm_area_hover_end.connect(self._on_farm_area_hover_end)
+
+	print(local_player)
 
 	# TODO: get holded item
 	# player.holded_item_changed.connect(self._on_holded_item_changed)
