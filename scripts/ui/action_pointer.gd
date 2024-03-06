@@ -1,11 +1,11 @@
 extends Node2D
 
-const tile_size: int = 16;
-const action_input: String = "click"
+const TILE_SIZE: int = 16;
+const ACTION_INPUT: String = "click"
 
 @onready var world_map: WorldMap = $"../world_map"
+@onready var local_player: Player = "../player"
 
-# @onready var local_player: LocalPlayer
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 @export var valid_color: Color = Color('#88e361')
@@ -25,8 +25,8 @@ func _ready():
 
 func get_mouse_coord() -> Vector2i:
 	var mouse_pos = get_global_mouse_position()
-	var x= int((floori(mouse_pos.x / tile_size) + 0.5) * tile_size)
-	var y= int((floori(mouse_pos.y / tile_size) + 0.5) * tile_size)
+	var x= int((floori(mouse_pos.x / TILE_SIZE) + 0.5) * TILE_SIZE)
+	var y= int((floori(mouse_pos.y / TILE_SIZE) + 0.5) * TILE_SIZE)
 	return Vector2i(x, y)
 
 func has_valid_action(coord: Vector2i) -> bool:
@@ -70,7 +70,7 @@ func _process(_delta):
 	var valid_action = validate_action(farm_coord)
 	update_pointer_color(valid_action)
 
-	if Input.is_action_just_pressed(action_input):
+	if Input.is_action_just_pressed(ACTION_INPUT):
 		if valid_action:
 			handle_click(farm_coord)
 		else:

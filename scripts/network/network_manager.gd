@@ -1,6 +1,6 @@
 extends Node
 
-const websocket_url = "ws://127.0.0.1:8080/join/"
+const WEBSOCKET_URL = "ws://127.0.0.1:8080/join/"
 
 signal tick_command_received(tick_data: TickData)
 signal join_command_received(player_data: PlayerData, is_local: bool)
@@ -19,7 +19,7 @@ func _ready():
 	var token = "123456"
 	_local_player_id = 0
 
-	var url = "%s%s" % [websocket_url, token]
+	var url = "%s%s" % [WEBSOCKET_URL, token]
 	_socket.connect_to_url(url)
 
 func _process(_delta):

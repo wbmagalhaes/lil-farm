@@ -2,7 +2,8 @@ extends Node
 
 # TODO: find a better way
 @onready var _level_root = get_tree().get_root().get_child(2)
-const _base_remote_player = preload("res://scenes/network/remote_player.tscn")
+
+const BASE_REMOTE_PLAYER = preload("res://scenes/network/remote_player.tscn")
 var _remote_players: Dictionary = {}
 
 signal player_added(player_name: String, join_player: bool)
@@ -15,7 +16,7 @@ func _ready():
 	NetworkManager.kick_command_received.connect(self._on_kick_command_received)
 
 func spawn_network_player(player_data: PlayerData, join_player: bool):
-	var remote_player: RemotePlayer = _base_remote_player.instantiate()
+	var remote_player: RemotePlayer = BASE_REMOTE_PLAYER.instantiate()
 	remote_player.initialize(player_data)
 
 	_level_root.add_child(remote_player)
