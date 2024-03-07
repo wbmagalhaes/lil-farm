@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://bt150igu3fykx"]
 
 [ext_resource type="PackedScene" uid="uid://mwy4jrhxqb30" path="res://scenes/environment/world_map.tscn" id="1_4dlq7"]
-[ext_resource type="PackedScene" uid="uid://dxips61cuxkuj" path="res://scenes/ui/chat_box.tscn" id="2_skeb1"]
+[ext_resource type="PackedScene" uid="uid://dxips61cuxkuj" path="res://scenes/ui/chat_box_dialog.tscn" id="2_skeb1"]
 [ext_resource type="PackedScene" uid="uid://ke3hi2g8uje6" path="res://scenes/player/player.tscn" id="3_s5sdu"]
 [ext_resource type="PackedScene" uid="uid://cwlmp2hwmb0ch" path="res://scenes/ui/action_pointer.tscn" id="4_mwnhq"]
 [ext_resource type="PackedScene" uid="uid://sdjted33413l" path="res://scenes/ui/quick_items_bar.tscn" id="5_lsvic"]
@@ -74,3 +74,5 @@ offset_left = -48.0
 offset_top = -19.0
 offset_right = 49.0
 offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2

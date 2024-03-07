@@ -9,7 +9,7 @@ var _current_position: Vector2
 var _current_direction: String
 var _current_animation: String
 
-var inventory: Inventory = Inventory.new()
+var inventory: Inventory = Inventory.new(20)
 
 func _ready():
 	_current_position = Vector2(0, 0)

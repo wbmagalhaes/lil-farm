@@ -6,6 +6,7 @@ extends Control
 func _ready():
 	chat_log.set_text("")
 	input_field.text_submitted.connect(self.on_text_submitted)
+
 	NetworkManager.chat_command_received.connect(self._on_chat_command_received)
 
 	NetworkManager.join_command_received.connect(self._on_join_command_received)
