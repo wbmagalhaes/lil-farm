@@ -1,18 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://bt150igu3fykx"]
+[gd_scene load_steps=7 format=3 uid="uid://bt150igu3fykx"]
 
 [ext_resource type="PackedScene" uid="uid://mwy4jrhxqb30" path="res://scenes/environment/world_map.tscn" id="1_4dlq7"]
 [ext_resource type="PackedScene" uid="uid://dxips61cuxkuj" path="res://scenes/ui/chat_box_dialog.tscn" id="2_skeb1"]
 [ext_resource type="PackedScene" uid="uid://ke3hi2g8uje6" path="res://scenes/player/player.tscn" id="3_s5sdu"]
 [ext_resource type="PackedScene" uid="uid://cwlmp2hwmb0ch" path="res://scenes/ui/action_pointer.tscn" id="4_mwnhq"]
-[ext_resource type="PackedScene" uid="uid://sdjted33413l" path="res://scenes/ui/quick_items_bar.tscn" id="5_lsvic"]
-[ext_resource type="PackedScene" uid="uid://but8mk2bqd4yf" path="res://scenes/items/a_item_pickup.tscn" id="6_djovp"]
-[ext_resource type="Resource" uid="uid://ehbcjtct3ysj" path="res://resources/items_data/wheat_seed_data.tres" id="6_jxm70"]
-[ext_resource type="Resource" uid="uid://cl1o25tyvdkkl" path="res://resources/items_data/fertilizer_data.tres" id="7_o3w0k"]
-[ext_resource type="Resource" uid="uid://dtmtlnqbyjrfl" path="res://resources/items_data/wheat_data.tres" id="7_wwwl3"]
-[ext_resource type="Resource" uid="uid://dqkaaqfqcpsxv" path="res://resources/items_data/hoe_data.tres" id="7_xqesr"]
-[ext_resource type="Resource" uid="uid://b3olr0jm0k5n0" path="res://resources/items_data/watering_can_data.tres" id="8_sfxo5"]
-[ext_resource type="Resource" uid="uid://3l3nr6hcon42" path="res://resources/items_data/tomato_data.tres" id="10_y7vkx"]
-[ext_resource type="Resource" uid="uid://cgp4ftb15hhl1" path="res://resources/items_data/tomato_seed_data.tres" id="11_lnodt"]
 [ext_resource type="Script" path="res://scripts/ui/ui_root.gd" id="12_g0xml"]
 [ext_resource type="PackedScene" uid="uid://cml44w4m1ifpp" path="res://scenes/ui/inventory_dialog.tscn" id="13_wp7pc"]
 
@@ -20,59 +11,15 @@
 y_sort_enabled = true
 
 [node name="world_map" parent="." instance=ExtResource("1_4dlq7")]
-unique_name_in_owner = true
 
 [node name="player" parent="." instance=ExtResource("3_s5sdu")]
-unique_name_in_owner = true
 
 [node name="action_pointer" parent="." instance=ExtResource("4_mwnhq")]
-
-[node name="item_pickup" parent="." instance=ExtResource("6_djovp")]
-position = Vector2(-70, 0)
-item_data = ExtResource("7_xqesr")
-
-[node name="item_pickup2" parent="." instance=ExtResource("6_djovp")]
-position = Vector2(-62, -26)
-item_data = ExtResource("6_jxm70")
-
-[node name="item_pickup5" parent="." instance=ExtResource("6_djovp")]
-position = Vector2(-50, -1)
-item_data = ExtResource("7_wwwl3")
-
-[node name="item_pickup3" parent="." instance=ExtResource("6_djovp")]
-position = Vector2(-97, -19)
-item_data = ExtResource("7_o3w0k")
-
-[node name="item_pickup4" parent="." instance=ExtResource("6_djovp")]
-position = Vector2(-99, 6)
-item_data = ExtResource("8_sfxo5")
-
-[node name="item_pickup6" parent="." instance=ExtResource("6_djovp")]
-position = Vector2(-85, 27)
-item_data = ExtResource("10_y7vkx")
-
-[node name="item_pickup7" parent="." instance=ExtResource("6_djovp")]
-position = Vector2(-115, 25)
-item_data = ExtResource("11_lnodt")
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("12_g0xml")
 
-[node name="quick_items_menu" parent="UI" instance=ExtResource("5_lsvic")]
-
 [node name="chat_box" parent="UI" instance=ExtResource("2_skeb1")]
 
 [node name="inventory_dialog" parent="UI" instance=ExtResource("13_wp7pc")]
-unique_name_in_owner = true
 visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -19.0
-offset_right = 49.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2

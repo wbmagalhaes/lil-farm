@@ -1,11 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://dvtpu086n8m6e"]
+[gd_scene load_steps=6 format=3 uid="uid://dvtpu086n8m6e"]
 
 [ext_resource type="Texture2D" uid="uid://datcaegf8ta5o" path="res://assets/objects/Tools.png" id="1_kvmxc"]
+[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_l31ej"]
+[ext_resource type="PackedScene" uid="uid://but8mk2bqd4yf" path="res://scenes/items/item_pickup.tscn" id="5_vahio"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7lhpn"]
+radius = 6.0
 
 [node name="watering_can" type="Node2D"]
+script = ExtResource("1_l31ej")
+grid = Array[Vector2i]([Vector2i(0, 0)])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(1, -1)
 texture = ExtResource("1_kvmxc")
 hframes = 6
 vframes = 6
+
+[node name="item_pickup" parent="." instance=ExtResource("5_vahio")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="item_pickup"]
+shape = SubResource("CircleShape2D_7lhpn")

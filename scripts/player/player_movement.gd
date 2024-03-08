@@ -2,8 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 @export var speed = 40
-@onready var animation_player = %AnimationPlayer
-@onready var pick_range = %pick_up_range
+@onready var animation_player = $AnimationPlayer
+@onready var pick_range = $pick_up_range
 
 var _current_position: Vector2
 var _current_direction: String
@@ -60,8 +60,10 @@ func send_move_update():
 	)
 
 func _on_pick_item(item_pickup: ItemPickup):
-	print('picked the item: ', item_pickup.item_data.name)
+	var item = item_pickup.get_item()
+
+	print('picked the item: ', item.data.name)
 	# TODO: check if inventory has slots
-	inventory.add_item(item_pickup.item_data)
+	inventory.add_item(item)
 	# TODO: call picked only if inventory had slots
 	item_pickup.on_picked()

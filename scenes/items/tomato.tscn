@@ -1,11 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://sfjbjrbydh45"]
+[gd_scene load_steps=6 format=3 uid="uid://sfjbjrbydh45"]
 
 [ext_resource type="Texture2D" uid="uid://bhsk35vupddqw" path="res://assets/plants/Basic_Plants.png" id="1_aug0r"]
+[ext_resource type="Script" path="res://scripts/items/item.gd" id="1_udx80"]
+[ext_resource type="PackedScene" uid="uid://but8mk2bqd4yf" path="res://scenes/items/item_pickup.tscn" id="5_evte4"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_680rd"]
+radius = 6.0
 
 [node name="tomato" type="Node2D"]
+script = ExtResource("1_udx80")
+grid = Array[Vector2i]([Vector2i(0, 0)])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_aug0r")
 hframes = 6
 vframes = 2
 frame = 11
+
+[node name="item_pickup" parent="." instance=ExtResource("5_evte4")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="item_pickup"]
+shape = SubResource("CircleShape2D_680rd")

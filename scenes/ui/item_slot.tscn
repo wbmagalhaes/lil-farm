@@ -1,17 +1,40 @@
-[gd_scene load_steps=3 format=3 uid="uid://blgfkf6kd4l21"]
+[gd_scene load_steps=5 format=3 uid="uid://blgfkf6kd4l21"]
 
 [ext_resource type="Script" path="res://scripts/ui/item_slot.gd" id="1_m1cwo"]
+[ext_resource type="Shader" path="res://scenes/ui/item_slot.gdshader" id="2_iiqbb"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8crrw"]
-bg_color = Color(0.615686, 0.517647, 0.407843, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ukjpg"]
+shader = ExtResource("2_iiqbb")
+shader_parameter/frame_color = Color(1, 1, 1, 1)
+shader_parameter/side = 1.3
+shader_parameter/radius = 0.1
+shader_parameter/thickness = 0.4
 
-[node name="item_slot" type="PanelContainer"]
-custom_minimum_size = Vector2(56, 56)
+[sub_resource type="CanvasTexture" id="CanvasTexture_2qtmo"]
+
+[node name="item_slot" type="Control"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 3
+anchors_preset = 0
 offset_right = 192.0
 offset_bottom = 192.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_8crrw")
 script = ExtResource("1_m1cwo")
+
+[node name="Border" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_ukjpg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("CanvasTexture_2qtmo")
+
+[node name="Status" type="ColorRect" parent="Border"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.227451)

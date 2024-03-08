@@ -1,11 +1,8 @@
 class_name Inventory
 
 var _size: int
-var _content: Array[ItemData] = []
+var _content: Array[Item] = []
 
-signal item_stack_added(item_stack: ItemStack)
-signal item_stack_changed(item_stack: ItemStack, count_delta: int)
-signal item_stack_removed(item_stack: ItemStack)
 signal loaded_from_dict(dict: Dictionary)
 
 func _init(size: int):
@@ -13,11 +10,17 @@ func _init(size: int):
 	_content.resize(size)
 	_content.fill(null)
 
-func add_item(item: ItemData):
+func add_item(item: Item):
 	_content.append(item)
 
-func remove_item(item: ItemData):
+func remove_item(item: Item):
 	_content.erase(item)
 
-func get_items() -> Array[ItemData]:
+func get_items() -> Array[Item]:
 	return _content
+
+static func from_dict(_dict: Dictionary):
+	pass
+
+func to_dict():
+	pass

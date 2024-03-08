@@ -1,105 +1,69 @@
-[gd_scene load_steps=3 format=3 uid="uid://cml44w4m1ifpp"]
+[gd_scene load_steps=4 format=3 uid="uid://cml44w4m1ifpp"]
 
 [ext_resource type="Script" path="res://scripts/ui/inventory_dialog.gd" id="1_5xs7o"]
 [ext_resource type="PackedScene" uid="uid://blgfkf6kd4l21" path="res://scenes/ui/item_slot.tscn" id="2_d334c"]
 
-[node name="inventory_dialog" type="PanelContainer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oi20s"]
+bg_color = Color(0.054902, 0.027451, 0.00392157, 1)
+
+[node name="inventory_dialog" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 252.0
 offset_bottom = 348.0
 script = ExtResource("1_5xs7o")
+slot_scene = ExtResource("2_d334c")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 420.0
+offset_bottom = 520.0
+color = Color(0.133333, 0.0431373, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_oi20s")
+
+[node name="Header" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="ColorRect/MarginContainer/VBoxContainer/PanelContainer/Header"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TitleLabel" type="Label" parent="ColorRect/MarginContainer/VBoxContainer/PanelContainer/Header"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Inventory"
 horizontal_alignment = 1
 
-[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="CloseButton" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/PanelContainer/Header"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 text = "X"
+flat = true
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="Content" type="GridContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-columns = 4
+size_flags_vertical = 3
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
 
-[node name="item_slot1" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot2" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot3" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot4" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot5" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot6" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot7" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot8" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot9" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot10" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot11" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot12" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot13" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot14" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot15" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot16" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot17" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot18" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot19" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[node name="item_slot20" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_d334c")]
-layout_mode = 2
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/PanelContainer/Header/CloseButton" to="." method="_on_close_button_pressed"]

@@ -1,11 +1,8 @@
 class_name ItemPickup
 extends Area2D
 
-@export var item_data: ItemData
-
-func _ready():
-	var instance = item_data.scene.instantiate()
-	add_child(instance)
+func get_item() -> Item:
+	return get_parent() as Item
 
 func on_picked():
 	queue_free()

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dqkaaqfqcpsxv"]
-
-[ext_resource type="PackedScene" uid="uid://rs6yis2t2usc" path="res://scenes/items/hoe.tscn" id="1_crcfh"]
-[ext_resource type="Script" path="res://scripts/items/item_data.gd" id="2_j6rll"]
-
-[resource]
-script = ExtResource("2_j6rll")
-name = "Hoe"
-scene = ExtResource("1_crcfh")

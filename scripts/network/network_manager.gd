@@ -25,26 +25,26 @@ func _process(_delta):
 	_socket.poll()
 
 	var state = _socket.get_ready_state()
+	match state:
+		WebSocketPeer.STATE_CONNECTING:
+			# print("Connecting...")
+			pass
 
-	if state == WebSocketPeer.STATE_CONNECTING:
-		# print("Connecting...")
-		pass
+		WebSocketPeer.STATE_OPEN:
+			while _socket.get_available_packet_count():
+				var packet =  _socket.get_packet()
+				var payload = packet.get_string_from_utf8()
 
-	elif state == WebSocketPeer.STATE_OPEN:
-		while _socket.get_available_packet_count():
-			var packet =  _socket.get_packet()
-			var payload = packet.get_string_from_utf8()
+				_parse_payload(payload)
 
-			_parse_payload(payload)
+		WebSocketPeer.STATE_CLOSING:
+			pass
 
-	elif state == WebSocketPeer.STATE_CLOSING:
-		pass
-
-	elif state == WebSocketPeer.STATE_CLOSED:
-		var code = _socket.get_close_code()
-		var reason = _socket.get_close_reason()
-		print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
-		set_process(false)
+		WebSocketPeer.STATE_CLOSED:
+			var code = _socket.get_close_code()
+			var reason = _socket.get_close_reason()
+			print("WebSocket closed with code: %d, reason %s. Clean: %s" % [code, reason, code != -1])
+			set_process(false)
 
 func _parse_payload(payload: String):
 	var json_object = JSON.new()
@@ -58,21 +58,22 @@ func _parse_payload(payload: String):
 	_parse_command(command, from, body)
 
 func _parse_command(command, from, body):
-	if command == "Tick":
-		_process_tick_command(body)
-	elif command == "Join":
-		_process_join_command(body)
-	elif command == "LoadPlayers":
-		_process_load_players_command(body)
-	elif command == "Chat":
-		_process_chat_command(from, body)
-	elif command == "Move":
-		_process_move_command(from, body)
-	elif command == "Kick":
-		_process_kick_command(body)
-	else:
-		print("Command: ", command)
-		print("Body:", body)
+	match command:
+		"Tick":
+			_process_tick_command(body)
+		"Join":
+			_process_join_command(body)
+		"LoadPlayers":
+			_process_load_players_command(body)
+		"Chat":
+			_process_chat_command(from, body)
+		"Move":
+			_process_move_command(from, body)
+		"Kick":
+			_process_kick_command(body)
+		_:
+			print("Command: ", command)
+			print("Body:", body)
 
 func _process_tick_command(body):
 	var json_object = JSON.new()

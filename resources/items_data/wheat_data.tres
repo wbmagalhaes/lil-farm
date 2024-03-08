@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dtmtlnqbyjrfl"]
-
-[ext_resource type="PackedScene" uid="uid://cto5deqftjgqj" path="res://scenes/items/wheat.tscn" id="1_rageq"]
-[ext_resource type="Script" path="res://scripts/items/item_data.gd" id="2_wp0ab"]
-
-[resource]
-script = ExtResource("2_wp0ab")
-name = "Wheat"
-scene = ExtResource("1_rageq")
