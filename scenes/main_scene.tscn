@@ -1,10 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://bt150igu3fykx"]
+[gd_scene load_steps=14 format=3 uid="uid://bt150igu3fykx"]
 
 [ext_resource type="PackedScene" uid="uid://mwy4jrhxqb30" path="res://scenes/environment/world_map.tscn" id="1_4dlq7"]
 [ext_resource type="PackedScene" uid="uid://dxips61cuxkuj" path="res://scenes/ui/chat_box_dialog.tscn" id="2_skeb1"]
 [ext_resource type="PackedScene" uid="uid://ke3hi2g8uje6" path="res://scenes/player/player.tscn" id="3_s5sdu"]
 [ext_resource type="PackedScene" uid="uid://cwlmp2hwmb0ch" path="res://scenes/ui/action_pointer.tscn" id="4_mwnhq"]
+[ext_resource type="PackedScene" uid="uid://b1rfhnvnfx2xk" path="res://scenes/items/fertilizer.tscn" id="7_bvf11"]
+[ext_resource type="PackedScene" uid="uid://c4c85w30aeqll" path="res://scenes/items/hoe.tscn" id="8_4yign"]
+[ext_resource type="PackedScene" uid="uid://debcrte0863sa" path="res://scenes/items/tomato.tscn" id="9_ldbwm"]
+[ext_resource type="PackedScene" uid="uid://dpab8xwb4m4w0" path="res://scenes/items/tomato_seed.tscn" id="10_inli0"]
+[ext_resource type="PackedScene" uid="uid://ch8epp3ctygdr" path="res://scenes/items/watering_can.tscn" id="11_r8bwp"]
 [ext_resource type="Script" path="res://scripts/ui/ui_root.gd" id="12_g0xml"]
+[ext_resource type="PackedScene" uid="uid://cvdf7ipjt4tt6" path="res://scenes/items/wheat.tscn" id="12_p03l6"]
+[ext_resource type="PackedScene" uid="uid://d2wwvdac0in3e" path="res://scenes/items/wheat_seed.tscn" id="13_dx6w0"]
 [ext_resource type="PackedScene" uid="uid://cml44w4m1ifpp" path="res://scenes/ui/inventory_dialog.tscn" id="13_wp7pc"]
 
 [node name="level" type="Node2D"]
@@ -23,3 +30,24 @@ script = ExtResource("12_g0xml")
 
 [node name="inventory_dialog" parent="UI" instance=ExtResource("13_wp7pc")]
 visible = false
+
+[node name="fertilizer" parent="." instance=ExtResource("7_bvf11")]
+position = Vector2(-58, -7)
+
+[node name="hoe" parent="." instance=ExtResource("8_4yign")]
+position = Vector2(-83, -1)
+
+[node name="tomato" parent="." instance=ExtResource("9_ldbwm")]
+position = Vector2(-64, 14)
+
+[node name="tomato_seed" parent="." instance=ExtResource("10_inli0")]
+position = Vector2(-85, 20)
+
+[node name="watering_can" parent="." instance=ExtResource("11_r8bwp")]
+position = Vector2(-105, 9)
+
+[node name="wheat" parent="." instance=ExtResource("12_p03l6")]
+position = Vector2(-103, -9)
+
+[node name="wheat_seed" parent="." instance=ExtResource("13_dx6w0")]
+position = Vector2(-63, 35)

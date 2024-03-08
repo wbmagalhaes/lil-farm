@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://bupb0rpwdwui5"]
+
+[ext_resource type="Script" path="res://scripts/items/item_data.gd" id="2_wp0ab"]
+
+[resource]
+script = ExtResource("2_wp0ab")
+id = 5
+name = "Wheat"

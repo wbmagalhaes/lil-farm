@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp7qpifbm41oc"]
+[gd_scene load_steps=6 format=3 uid="uid://dpab8xwb4m4w0"]
 
 [ext_resource type="Texture2D" uid="uid://bhsk35vupddqw" path="res://assets/plants/Basic_Plants.png" id="1_3nmfq"]
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_k38ch"]
-[ext_resource type="PackedScene" uid="uid://but8mk2bqd4yf" path="res://scenes/items/item_pickup.tscn" id="5_vnocg"]
+[ext_resource type="Resource" uid="uid://d0iheiwyqto6o" path="res://resources/items_data/tomato_seed_data.tres" id="2_qndyr"]
+[ext_resource type="PackedScene" uid="uid://cfsu60tn8av8v" path="res://scenes/items/item_pickup.tscn" id="5_vnocg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_126ol"]
 radius = 6.0
 
 [node name="tomato_seed" type="Node2D"]
 script = ExtResource("1_k38ch")
+data = ExtResource("2_qndyr")
 grid = Array[Vector2i]([Vector2i(0, 0)])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

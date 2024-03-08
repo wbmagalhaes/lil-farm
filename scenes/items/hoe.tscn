@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://rs6yis2t2usc"]
+[gd_scene load_steps=6 format=3 uid="uid://c4c85w30aeqll"]
 
 [ext_resource type="Script" path="res://scripts/items/item.gd" id="1_3ksby"]
 [ext_resource type="Texture2D" uid="uid://datcaegf8ta5o" path="res://assets/objects/Tools.png" id="1_6xgtg"]
-[ext_resource type="PackedScene" uid="uid://but8mk2bqd4yf" path="res://scenes/items/item_pickup.tscn" id="5_8ogux"]
+[ext_resource type="Resource" uid="uid://clwd0ma3yb68s" path="res://resources/items_data/hoe_data.tres" id="2_dbbqt"]
+[ext_resource type="PackedScene" uid="uid://cfsu60tn8av8v" path="res://scenes/items/item_pickup.tscn" id="5_8ogux"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_og7dy"]
 radius = 6.0
 
 [node name="hoe" type="Node2D"]
 script = ExtResource("1_3ksby")
+data = ExtResource("2_dbbqt")
 grid = Array[Vector2i]([Vector2i(0, 0)])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
