@@ -4,4 +4,7 @@ extends CanvasLayer
 
 func _unhandled_input(event):
 	if event.is_action_pressed("inventory"):
-		player.inventory.open()
+		if player.inventory.visible:
+			player.inventory.close()
+		else:
+			player.inventory.open()

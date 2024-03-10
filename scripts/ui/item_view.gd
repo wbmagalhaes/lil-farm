@@ -26,12 +26,13 @@ func _process(delta):
 		var mouse_pos = get_global_mouse_position()
 		global_position = lerp(global_position, mouse_pos, 25 * delta)
 
-func grab():
+func grab() -> ItemView:
 	_selected = true
 	z_index = 100
 
 	var tween = get_tree().create_tween()
-	tween.tween_property(_sprite_2d, "scale", Vector2(1.1, 1.1), 0.15).set_trans(Tween.TRANS_SPRING)
+	tween.tween_property(self, "scale", Vector2(1.15, 1.15), 0.15).set_trans(Tween.TRANS_SPRING)
+	return self
 
 func on_place(anchor: ItemSlot, target: Vector2):
 	_snap_to(target)
@@ -41,7 +42,7 @@ func on_place(anchor: ItemSlot, target: Vector2):
 	z_index = 0
 
 	var tween = get_tree().create_tween()
-	tween.tween_property(_sprite_2d, "scale", Vector2(1, 1), 0.15).set_trans(Tween.TRANS_SPRING)
+	tween.tween_property(self, "scale", Vector2(1, 1), 0.15).set_trans(Tween.TRANS_SPRING)
 
 func rotate_item():
 	var new_grid: Array[Vector2i] = []
@@ -55,14 +56,16 @@ func rotate_item():
 		rotation_degrees = 0
 
 func _snap_to(target: Vector2):
-	print(target)
 	print(rotation_degrees)
 	print(_size)
 
-	if int(rotation_degrees) % 180 == 0:
-		target += _size / 2
-	else:
-		target += Vector2(_size.y, _size.x) / 2
+	print(target)
+
+	target += _size / 2
+	# if int(rotation_degrees) % 180 == 0:
+	# 	target += _size / 2
+	# else:
+	# 	target += Vector2(_size.y, _size.x) / 2
 
 	global_position = target
 	# var tween = get_tree().create_tween()

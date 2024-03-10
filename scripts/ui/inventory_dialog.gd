@@ -81,7 +81,7 @@ func _on_slot_mouse_exited(_slot: ItemSlot):
 		slot_hovered = null
 
 func on_pick_clicked():
-	if slot_hovered != null and slot_hovered.item_stored:
+	if slot_hovered != null and slot_hovered.get_item():
 		pick_item(slot_hovered)
 
 		can_place = check_slot_availability(slot_hovered, item_grabbed.get_grid())
@@ -117,7 +117,7 @@ func check_slot_availability(slot: ItemSlot, grid: Array[Vector2i]) -> bool:
 		if slot_to_check < 0 or slot_to_check >= _slots.size():
 			return false
 
-		if _slots[slot_to_check].state == ItemSlot.State.TAKEN:
+		if _slots[slot_to_check].is_taken():
 			return false
 
 	return true
@@ -157,21 +157,18 @@ func place_item(slot: ItemSlot, item: ItemView):
 	item.on_place(slot, target_position)
 	for cell in item.get_grid():
 		var slot_to_check = slot.index + cell.x + cell.y * col_count
-		_slots[slot_to_check].state = ItemSlot.State.TAKEN
-		_slots[slot_to_check].item_stored = item
+		_slots[slot_to_check].add_item(item)
 
 func pick_item(slot: ItemSlot):
-	if not slot or not slot.item_stored:
+	if not slot or not slot.get_item():
 		return
 
-	slot.item_stored.grab()
-	item_grabbed = slot.item_stored
+	item_grabbed = slot.get_item().grab()
 
 	for cell in item_grabbed.get_grid():
 		var anchor = item_grabbed.get_anchor()
 		var slot_to_check = anchor.index + cell.x + cell.y * col_count
-		_slots[slot_to_check].state = ItemSlot.State.FREE
-		_slots[slot_to_check].item_stored = null
+		_slots[slot_to_check].remove_item()
 
 func spawn_slots():
 	for i in range(capacity):
