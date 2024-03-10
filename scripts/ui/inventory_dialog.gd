@@ -12,13 +12,13 @@ var _slots: Array[ItemSlot] = []
 
 var slot_hovered: ItemSlot = null
 var item_grabbed: ItemView = null
-var icon_anchor : Vector2
+var item_anchor : Vector2
 var can_place = false
 
 func _ready():
 	spawn_slots()
 	hide()
-	
+
 func _process(_delta):
 	if item_grabbed:
 		if Input.is_action_just_pressed("right_click"):
@@ -30,25 +30,21 @@ func _process(_delta):
 	else:
 		if Input.is_action_just_pressed("left_click"):
 			on_pick_clicked()
-			
+
 
 func add_item(item: Item) -> bool:
 	print('picked the item: ', item.data.name)
-	
-	# TODO: check for item rotations
+
 	var available = get_available_slot(item)
 	if available == null:
 		return false
-	
+
 	var new_item_view: ItemView = item_view_scene.instantiate()
 	new_item_view.setup(item)
 	self.add_child(new_item_view)
 
 	place_item(available, new_item_view)
-
-	clear_slots()
-	if slot_hovered:
-		_on_slot_mouse_entered(slot_hovered)
+	refresh_hover()
 
 	return true
 
@@ -64,6 +60,11 @@ func close():
 func _on_close_button_pressed():
 	close()
 
+func refresh_hover():
+	clear_slots()
+	if slot_hovered:
+		_on_slot_mouse_entered(slot_hovered)
+
 func _on_slot_mouse_entered(slot: ItemSlot):
 	slot_hovered = slot
 
@@ -73,7 +74,7 @@ func _on_slot_mouse_entered(slot: ItemSlot):
 
 func _on_slot_mouse_exited(_slot: ItemSlot):
 	clear_slots()
-	
+
 	var grid_rect = grid_container.get_global_rect()
 	var mouse_pos = get_global_mouse_position()
 	if not grid_rect.has_point(mouse_pos):
@@ -95,13 +96,11 @@ func on_place_clicked():
 func on_rotate_clicked():
 	if item_grabbed != null:
 		rotate_item(item_grabbed)
-
-		clear_slots()
-		if slot_hovered:
-			_on_slot_mouse_entered(slot_hovered)
+		refresh_hover()
 
 func get_available_slot(item: Item) -> ItemSlot:
 	for slot in _slots:
+		# TODO: check for item rotations
 		if check_slot_availability(slot, item.data.grid):
 			return slot
 
@@ -135,8 +134,8 @@ func mark_slots_availability(slot: ItemSlot, available: bool):
 
 		if available:
 			_slots[slot_to_check].set_color(ItemSlot.State.FREE)
-			if cell.x < icon_anchor.x: icon_anchor.x = cell.x
-			if cell.y < icon_anchor.y: icon_anchor.y = cell.y
+			if cell.x < item_anchor.x: item_anchor.x = cell.x
+			if cell.y < item_anchor.y: item_anchor.y = cell.y
 		else:
 			_slots[slot_to_check].set_color(ItemSlot.State.TAKEN)
 
@@ -149,37 +148,29 @@ func rotate_item(item: ItemView):
 
 func place_item(slot: ItemSlot, item: ItemView):
 	if not slot:
-		 # put indication of placement failed, sound or visual here
+		# TODO: put indication of placement failed
 		return
 
-	# item.get_parent().remove_child(item)
-	# grid_container.add_child(item)
-	# item.global_position = get_global_mouse_position()
-
-	var snap_slot_index = slot.index + icon_anchor.x * col_count + icon_anchor.y
+	var snap_slot_index = slot.index + item_anchor.x * col_count + item_anchor.y
 	var target_position = _slots[snap_slot_index].global_position
 
 	item.on_place(slot, target_position)
 	for cell in item.get_grid():
 		var slot_to_check = slot.index + cell.x + cell.y * col_count
-		_slots[slot_to_check].state = ItemSlot.State.TAKEN 
+		_slots[slot_to_check].state = ItemSlot.State.TAKEN
 		_slots[slot_to_check].item_stored = item
 
 func pick_item(slot: ItemSlot):
-	if not slot or not slot.item_stored: 
+	if not slot or not slot.item_stored:
 		return
 
 	slot.item_stored.grab()
 	item_grabbed = slot.item_stored
 
-	# item_grabbed.get_parent().remove_child(item_grabbed)
-	# add_child(item_grabbed)
-	# item_grabbed.global_position = get_global_mouse_position()
-
 	for cell in item_grabbed.get_grid():
 		var anchor = item_grabbed.get_anchor()
 		var slot_to_check = anchor.index + cell.x + cell.y * col_count
-		_slots[slot_to_check].state = ItemSlot.State.FREE 
+		_slots[slot_to_check].state = ItemSlot.State.FREE
 		_slots[slot_to_check].item_stored = null
 
 func spawn_slots():

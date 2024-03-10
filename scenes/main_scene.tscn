@@ -33,6 +33,9 @@ script = ExtResource("12_g0xml")
 [node name="fertilizer" parent="." instance=ExtResource("7_bvf11")]
 position = Vector2(-58, -7)
 
+[node name="fertilizer2" parent="." instance=ExtResource("7_bvf11")]
+position = Vector2(-44, 19)
+
 [node name="hoe" parent="." instance=ExtResource("8_4yign")]
 position = Vector2(-83, -1)
 
