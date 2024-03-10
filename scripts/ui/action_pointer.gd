@@ -20,8 +20,6 @@ func _ready():
 	world_map.farm_area_hover_start.connect(self._on_farm_area_hover_start)
 	world_map.farm_area_hover_end.connect(self._on_farm_area_hover_end)
 
-	print(local_player)
-
 	# TODO: get holded item
 	# player.holded_item_changed.connect(self._on_holded_item_changed)
 
@@ -56,6 +54,7 @@ func validate_action(tile_coord) -> bool:
 	return has_valid_action(tile_coord)
 
 func handle_click(coord: Vector2i):
+	# TODO: handle clicks
 	print(coord)
 
 func update_pointer_color(valid_action: bool):

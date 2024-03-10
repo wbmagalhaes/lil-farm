@@ -58,6 +58,7 @@ func rotate_item():
 func _snap_to(target: Vector2):
 	print(rotation_degrees)
 	print(_size)
+	print(_grid)
 
 	print(target)
 

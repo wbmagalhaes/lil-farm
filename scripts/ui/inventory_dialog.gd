@@ -33,8 +33,6 @@ func _process(_delta):
 
 
 func add_item(item: Item) -> bool:
-	print('picked the item: ', item.data.name)
-
 	var available = get_available_slot(item)
 	if available == null:
 		return false
@@ -152,6 +150,7 @@ func place_item(slot: ItemSlot, item: ItemView):
 		return
 
 	var snap_slot_index = slot.index + item_anchor.x * col_count + item_anchor.y
+	print(snap_slot_index)
 	var target_position = _slots[snap_slot_index].global_position
 
 	item.on_place(slot, target_position)
