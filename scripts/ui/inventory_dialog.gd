@@ -5,7 +5,7 @@ extends Control
 @export var slot_scene: PackedScene
 @export var item_view_scene: PackedScene
 
-@onready var grid_container = $ColorRect/MarginContainer/VBoxContainer/Content
+@onready var grid_container: GridContainer = $ColorRect/MarginContainer/VBoxContainer/Content
 
 var col_count = 6
 var _slots: Array[ItemSlot] = []
@@ -37,9 +37,10 @@ func add_item(item: Item) -> bool:
 		return false
 
 	var new_item_view: ItemView = item_view_scene.instantiate()
-	new_item_view.position = Vector2(0, 0)
 	new_item_view.setup(item)
 	self.add_child(new_item_view)
+
+	new_item_view.position = self.position + self.size * 0.5
 
 	place_item(available, new_item_view)
 	refresh_hover()
