@@ -56,21 +56,13 @@ func rotate_item():
 		rotation_degrees = 0
 
 func _snap_to(target: Vector2):
-	print(rotation_degrees)
-	print(_size)
-	print(_grid)
+	if int(rotation_degrees) % 180 == 0:
+		target += _size / 2
+	else:
+		target += Vector2(_size.y, _size.x) / 2
 
-	print(target)
-
-	target += _size / 2
-	# if int(rotation_degrees) % 180 == 0:
-	# 	target += _size / 2
-	# else:
-	# 	target += Vector2(_size.y, _size.x) / 2
-
-	global_position = target
-	# var tween = get_tree().create_tween()
-	# tween.tween_property(self, "global_position", target, 0.15).set_trans(Tween.TRANS_SINE)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "global_position", target, 0.15).set_trans(Tween.TRANS_SINE)
 
 func get_grid() -> Array[Vector2i]:
 	return _grid

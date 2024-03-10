@@ -12,7 +12,6 @@ var _slots: Array[ItemSlot] = []
 
 var slot_hovered: ItemSlot = null
 var item_grabbed: ItemView = null
-var item_anchor : Vector2
 var can_place = false
 
 func _ready():
@@ -79,6 +78,8 @@ func _on_slot_mouse_exited(_slot: ItemSlot):
 		slot_hovered = null
 
 func on_pick_clicked():
+	# TODO: send the command to server
+	# TODO: await for server response to update ui
 	if slot_hovered != null and slot_hovered.get_item():
 		pick_item(slot_hovered)
 
@@ -86,6 +87,8 @@ func on_pick_clicked():
 		mark_slots_availability.call_deferred(slot_hovered, can_place)
 
 func on_place_clicked():
+	# TODO: send the command to server
+	# TODO: await for server response to update ui
 	if slot_hovered != null and can_place:
 		place_item(slot_hovered, item_grabbed)
 		item_grabbed = null
@@ -132,8 +135,6 @@ func mark_slots_availability(slot: ItemSlot, available: bool):
 
 		if available:
 			_slots[slot_to_check].set_color(ItemSlot.State.FREE)
-			if cell.x < item_anchor.x: item_anchor.x = cell.x
-			if cell.y < item_anchor.y: item_anchor.y = cell.y
 		else:
 			_slots[slot_to_check].set_color(ItemSlot.State.TAKEN)
 
@@ -149,8 +150,12 @@ func place_item(slot: ItemSlot, item: ItemView):
 		# TODO: put indication of placement failed
 		return
 
-	var snap_slot_index = slot.index + item_anchor.x * col_count + item_anchor.y
-	print(snap_slot_index)
+	var item_anchor = Vector2(10000, 10000)
+	for cell in item.get_grid():
+		if cell.x < item_anchor.x: item_anchor.x = cell.x
+		if cell.y < item_anchor.y: item_anchor.y = cell.y
+
+	var snap_slot_index = slot.index + item_anchor.x + item_anchor.y * col_count
 	var target_position = _slots[snap_slot_index].global_position
 
 	item.on_place(slot, target_position)
