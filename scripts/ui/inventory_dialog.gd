@@ -80,24 +80,34 @@ func _on_slot_mouse_exited(_slot: ItemSlot):
 func on_pick_clicked():
 	# TODO: send the command to server
 	# TODO: await for server response to update ui
-	if slot_hovered != null and slot_hovered.get_item():
-		pick_item(slot_hovered)
+	if slot_hovered == null or not slot_hovered.get_item():
+		return
 
-		can_place = check_slot_availability(slot_hovered, item_grabbed.get_grid())
-		mark_slots_availability.call_deferred(slot_hovered, can_place)
+	pick_item(slot_hovered)
+
+	can_place = check_slot_availability(slot_hovered, item_grabbed.get_grid())
+	mark_slots_availability.call_deferred(slot_hovered, can_place)
 
 func on_place_clicked():
 	# TODO: send the command to server
 	# TODO: await for server response to update ui
-	if slot_hovered != null and can_place:
+	if slot_hovered == null:
+		return
+
+	if can_place:
 		place_item(slot_hovered, item_grabbed)
 		item_grabbed = null
 		clear_slots()
+	else:
+		# TODO: add fail feedback
+		pass
 
 func on_rotate_clicked():
-	if item_grabbed != null:
-		rotate_item(item_grabbed)
-		refresh_hover()
+	if item_grabbed == null:
+		return
+
+	item_grabbed.rotate_item()
+	refresh_hover()
 
 func get_available_slot(item: Item) -> ItemSlot:
 	for slot in _slots:
@@ -142,14 +152,7 @@ func clear_slots():
 	for slot in _slots:
 		slot.set_color(ItemSlot.State.DEFAULT)
 
-func rotate_item(item: ItemView):
-	item.rotate_item()
-
 func place_item(slot: ItemSlot, item: ItemView):
-	if not slot:
-		# TODO: put indication of placement failed
-		return
-
 	var item_anchor = Vector2(10000, 10000)
 	for cell in item.get_grid():
 		if cell.x < item_anchor.x: item_anchor.x = cell.x
@@ -164,9 +167,6 @@ func place_item(slot: ItemSlot, item: ItemView):
 		_slots[slot_to_check].add_item(item)
 
 func pick_item(slot: ItemSlot):
-	if not slot or not slot.get_item():
-		return
-
 	item_grabbed = slot.get_item().grab()
 
 	for cell in item_grabbed.get_grid():
