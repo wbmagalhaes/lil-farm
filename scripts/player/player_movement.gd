@@ -60,7 +60,8 @@ func send_move_update():
 
 func _on_pick_item(item_pickup: ItemPickup):
 	var item = item_pickup.get_item()
-	var success = inventory.add_item(item)
-	if success:
+	# TODO: send the command to server
+	# TODO: await for server response to update inventory
+	if inventory.add_item(item):
 		item_pickup.set_disabled(true)
 		item.visible = false

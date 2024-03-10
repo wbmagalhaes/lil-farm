@@ -8,4 +8,5 @@ script = ExtResource("2_a0bwo")
 id = 3
 name = "Tomato Seed"
 icon = ExtResource("1_3nfqv")
+icon_color = Color(0.65625, 0.392212, 0.392212, 1)
 grid = Array[Vector2i]([Vector2i(0, 0)])

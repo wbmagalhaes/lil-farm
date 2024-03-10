@@ -37,6 +37,7 @@ func add_item(item: Item) -> bool:
 		return false
 
 	var new_item_view: ItemView = item_view_scene.instantiate()
+	new_item_view.position = Vector2(0, 0)
 	new_item_view.setup(item)
 	self.add_child(new_item_view)
 
@@ -52,6 +53,9 @@ func open():
 	show()
 
 func close():
+	if item_grabbed:
+		drop_item()
+
 	hide()
 
 func _on_close_button_pressed():
@@ -92,6 +96,7 @@ func on_place_clicked():
 	# TODO: send the command to server
 	# TODO: await for server response to update ui
 	if slot_hovered == null:
+		drop_item()
 		return
 
 	if can_place:
@@ -173,6 +178,9 @@ func pick_item(slot: ItemSlot):
 		var anchor = item_grabbed.get_anchor()
 		var slot_to_check = anchor.index + cell.x + cell.y * col_count
 		_slots[slot_to_check].remove_item()
+
+func drop_item():
+	print('drop ', item_grabbed)
 
 func spawn_slots():
 	for i in range(capacity):

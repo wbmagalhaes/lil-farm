@@ -28,6 +28,7 @@ func setup(item: Item):
 		_grid.append(Vector2i(cell.x, cell.y))
 
 	_sprite_2d.set_texture(item.data.icon)
+	_sprite_2d.modulate = item.data.icon_color
 	_size = _sprite_2d.get_rect().size
 
 func _process(delta):

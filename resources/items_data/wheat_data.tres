@@ -8,4 +8,5 @@ script = ExtResource("2_wp0ab")
 id = 5
 name = "Wheat"
 icon = ExtResource("1_jb3iw")
+icon_color = Color(0.882813, 0.414169, 0.0379333, 1)
 grid = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 1)])

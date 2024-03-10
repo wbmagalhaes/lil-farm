@@ -8,4 +8,5 @@ script = ExtResource("2_j6rll")
 id = 1
 name = "Hoe"
 icon = ExtResource("1_p3k5x")
+icon_color = Color(0.460938, 0.460938, 0.460938, 1)
 grid = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(1, 1)])
