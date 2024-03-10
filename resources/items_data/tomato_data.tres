@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://cblvwcca48ki5"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cblvwcca48ki5"]
 
+[ext_resource type="Texture2D" uid="uid://dyiv6agidgxxy" path="res://assets/objects/Item4.png" id="1_r0p4p"]
 [ext_resource type="Script" path="res://scripts/items/item_data.gd" id="2_ov4ge"]
 
 [resource]
 script = ExtResource("2_ov4ge")
 id = 2
 name = "Tomato"
+icon = ExtResource("1_r0p4p")
+grid = Array[Vector2i]([Vector2i(0, 0)])

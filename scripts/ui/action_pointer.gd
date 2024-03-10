@@ -1,7 +1,7 @@
 extends Node2D
 
 const TILE_SIZE: int = 16;
-const ACTION_INPUT: String = "click"
+const ACTION_INPUT: String = "left_click"
 
 @onready var world_map: WorldMap = $"../world_map"
 @onready var local_player: Player = $"../player"

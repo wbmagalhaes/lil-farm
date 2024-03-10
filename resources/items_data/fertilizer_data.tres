@@ -1,8 +1,11 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://badoqsuqc4jsi"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://badoqsuqc4jsi"]
 
+[ext_resource type="Texture2D" uid="uid://dyiv6agidgxxy" path="res://assets/objects/Item4.png" id="1_ar0t3"]
 [ext_resource type="Script" path="res://scripts/items/item_data.gd" id="2_1xvj8"]
 
 [resource]
 script = ExtResource("2_1xvj8")
 id = 7
 name = "Fertilizer"
+icon = ExtResource("1_ar0t3")
+grid = Array[Vector2i]([Vector2i(0, 0)])

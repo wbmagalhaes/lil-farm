@@ -1,15 +1,15 @@
 class_name ItemSlot
 extends Control
 
-signal slot_entered(slot: ItemSlot)
-signal slot_exited(slot: ItemSlot)
+signal slot_mouse_entered(slot: ItemSlot)
+signal slot_mouse_exited(slot: ItemSlot)
 
 @onready var filter: ColorRect = $Border/Status
 
-var slot_id: int
+var index: int
 var hovering: bool = false
 var state: State = State.DEFAULT
-var item_stored: Item = null
+var item_stored: ItemView = null
 
 enum State {
 	DEFAULT,
@@ -17,9 +17,10 @@ enum State {
 	FREE,
 }
 
-func set_color(_state: State):
-	state = _state
+func _ready():
+	set_color(State.DEFAULT)
 
+func set_color(_state: State):
 	match _state:
 		State.DEFAULT:
 			filter.color = Color(Color.WHITE, 0.2)
@@ -34,7 +35,7 @@ func _process(_delta):
 
 	if mouse_inside and not hovering:
 		hovering = true
-		slot_entered.emit(self)
+		slot_mouse_entered.emit(self)
 	elif hovering and not mouse_inside:
 		hovering = false
-		slot_exited.emit(self)
+		slot_mouse_exited.emit(self)
