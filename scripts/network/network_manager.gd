@@ -134,10 +134,12 @@ func send_chat_command(message):
 	send_command(chat_command)
 
 func send_move_command(position: Vector2, direction: String, animation: String):
+	var x = position.x
+	var y = position.y
 	var position_string = """{
-		"x": %s,
-		"y": %s
-	}""" % [position.x, position.y] if position else "null"
+		"x": %.5f,
+		"y": %.5f
+	}""" % [x, y] if position else "null"
 
 	var move_body = """{
 		"position": %s,
