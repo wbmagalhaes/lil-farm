@@ -126,10 +126,6 @@ func _process_kick_command(body):
 	kick_command_received.emit(player_id)
 
 func send_chat_command(message):
-	var state = _socket.get_ready_state()
-	if state != WebSocketPeer.STATE_OPEN:
-		return
-
 	var chat_command = """{
 		"to": "All",
 		"command": "Chat",
@@ -138,10 +134,6 @@ func send_chat_command(message):
 	send_command(chat_command)
 
 func send_move_command(position: Vector2, direction: String, animation: String):
-	var state = _socket.get_ready_state()
-	if state != WebSocketPeer.STATE_OPEN:
-		return
-
 	var position_string = """{
 		"x": %s,
 		"y": %s
@@ -162,10 +154,16 @@ func send_move_command(position: Vector2, direction: String, animation: String):
 	send_command(move_command)
 
 func send_command(command: String):
-	command = command.replace(' ', '')
 	command = command.replace('\n', '')
 	command = command.replace('\t', '')
+	command = command.replace('\\n', '')
+	command = command.replace('\\t', '')
 	print(command)
+
+	var state = _socket.get_ready_state()
+	if state != WebSocketPeer.STATE_OPEN:
+		return
+
 	_socket.send_text(command)
 
 func get_player_name(player_id):

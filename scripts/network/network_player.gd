@@ -16,6 +16,7 @@ func update_position(pos: Vector2):
 	if not pos:
 		return
 
+	# TODO: lerp position
 	set_position(pos)
 
 func update_direction(dir: String):

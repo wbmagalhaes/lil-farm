@@ -10,6 +10,12 @@ var _current_position: Vector2
 var _current_direction: String
 var _current_animation: String
 
+var _last_sent_position: Vector2
+var _last_sent_direction: String
+var _last_sent_animation: String
+
+const MOVE_COMMAND_DIST_THRESHOLD = 0.5
+
 func _ready():
 	_current_position = Vector2(0, 0)
 	_current_direction = "Down"
@@ -51,12 +57,32 @@ func _physics_process(_delta: float) -> void:
 	send_move_update()
 
 func send_move_update():
-	# TODO: only send if changed from previous frame
-	NetworkManager.send_move_command(
-		_current_position,
-		_current_direction,
-		_current_animation,
-	)
+	if move_command_is_diff():
+		NetworkManager.send_move_command(
+			_current_position,
+			_current_direction,
+			_current_animation,
+		)
+
+		_last_sent_position = _current_position
+		_last_sent_direction = _current_direction
+		_last_sent_animation = _current_animation
+
+func move_command_is_diff() -> bool:
+	if _last_sent_position == null or _last_sent_direction == null or _last_sent_animation == null:
+		return true
+
+	if _current_animation != _last_sent_animation:
+		return true
+
+	if _current_direction != _last_sent_direction:
+		return true
+
+	var delta_pos_sq = (_current_position - _last_sent_position).length_squared()
+	if delta_pos_sq > MOVE_COMMAND_DIST_THRESHOLD * MOVE_COMMAND_DIST_THRESHOLD:
+		return true
+
+	return false
 
 func _on_pick_item(item_pickup: ItemPickup):
 	var item = item_pickup.get_item()

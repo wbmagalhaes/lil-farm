@@ -23,7 +23,7 @@ func add_message(from: String, body: String):
 	var time = Time.get_datetime_dict_from_system()
 	var time_string: String = "%02d/%02d/%d %02d:%02d:%02d" % [time.day, time.month, time.year, time.hour, time.minute, time.second];
 
-	var message: String = "[%s - %s]: %s" % [time_string, from, body]
+	var message: String = "[%s] %s: %s" % [time_string, from, body]
 	chat_log.add_text(message)
 
 func on_text_submitted(text):
