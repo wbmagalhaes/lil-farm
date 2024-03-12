@@ -181,6 +181,7 @@ func pick_item(slot: ItemSlot):
 		_slots[slot_to_check].remove_item()
 
 func drop_item():
+	# TODO: drop on ground
 	print('drop ', item_grabbed)
 
 func spawn_slots():

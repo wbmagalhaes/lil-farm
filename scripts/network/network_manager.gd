@@ -135,7 +135,7 @@ func send_chat_command(message):
 		"command": "Chat",
 		"body": "%s"
 	}""" % [message.json_escape()]
-	_socket.send_text(chat_command)
+	send_command(chat_command)
 
 func send_move_command(position: Vector2, direction: String, animation: String):
 	var state = _socket.get_ready_state()
@@ -159,7 +159,14 @@ func send_move_command(position: Vector2, direction: String, animation: String):
 		"body": "%s"
 	}""" % [move_body.json_escape()]
 
-	_socket.send_text(move_command)
+	send_command(move_command)
+
+func send_command(command: String):
+	command = command.replace(' ', '')
+	command = command.replace('\n', '')
+	command = command.replace('\t', '')
+	print(command)
+	_socket.send_text(command)
 
 func get_player_name(player_id):
 	if player_id == _local_player_id:
