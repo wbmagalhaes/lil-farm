@@ -16,7 +16,7 @@ var can_place = false
 
 func _ready():
 	spawn_slots()
-	hide()
+	hide.call_deferred()
 
 func _process(_delta):
 	if item_grabbed:
@@ -29,7 +29,6 @@ func _process(_delta):
 	else:
 		if Input.is_action_just_pressed("left_click"):
 			on_pick_clicked()
-
 
 func add_item(item: Item) -> bool:
 	var available = get_available_slot(item)
