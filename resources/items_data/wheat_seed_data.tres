@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_ymobr")
-id = 6
+id = 5
 name = "Wheat Seed"
 icon = ExtResource("1_v3qt8")
 icon_color = Color(0.902344, 0.676813, 0.458221, 1)

@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_1b5ve")
-id = 4
+id = 2
 name = "Watering Can"
 icon = ExtResource("1_e1f6x")
 icon_color = Color(0.285507, 0.381888, 0.902344, 1)
