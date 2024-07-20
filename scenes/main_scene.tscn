@@ -31,7 +31,7 @@ script = ExtResource("12_g0xml")
 [node name="inventory_dialog" parent="UI" instance=ExtResource("13_wp7pc")]
 
 [node name="fertilizer" parent="." instance=ExtResource("7_bvf11")]
-position = Vector2(-58, -7)
+position = Vector2(98, -55)
 
 [node name="fertilizer2" parent="." instance=ExtResource("7_bvf11")]
 position = Vector2(-44, 19)
