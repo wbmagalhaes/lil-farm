@@ -30,7 +30,7 @@ jobs:
       - name: Gambiarra
         run: |
           mv ./enable-threads.js build/web/enable-threads.js
-          sed -i 's#\(		<script src="index.js"></script>\)#		<script src="enable-threads.js"></script>\n\1#g' index.html
+          sed -i 's#\(		<script src="index.js"></script>\)#		<script src="enable-threads.js"></script>\n\1#g' build/web/index.html
 
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
