@@ -27,6 +27,11 @@ jobs:
           mkdir -v -p build/web
           godot --headless -v --export-release "HTML5" ./build/web/index.html
 
+      - name: Gambiarra
+        run: |
+          mv ./enable-threads.js build/web/enable-threads.js
+          sed -i 's#\(		<script src="index.js"></script>\)#		<script src="enable-threads.js"></script>\n\1#g' index.html
+
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
