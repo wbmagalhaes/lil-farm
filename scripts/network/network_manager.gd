@@ -17,6 +17,7 @@ func _ready():
 	var token = "123456"
 	_local_player_id = 0
 
+	# TODO: use environment variables
 	var websocket_base_url = "wss://lil-farm-backend.onrender.com/"
 	var url = "%sjoin/%s/" % [websocket_base_url, token]
 	_socket.connect_to_url(url)
