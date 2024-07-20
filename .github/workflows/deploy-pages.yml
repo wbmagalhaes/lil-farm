@@ -27,12 +27,6 @@ jobs:
           mkdir -v -p build/web
           godot --headless -v --export-release "HTML5" ./build/web/index.html
 
-      - name: Gambiarra
-        run: |
-          cd build/web
-          curl -fsSL https://github.com/gzuidhof/coi-serviceworker/raw/master/coi-serviceworker.js > coi-serviceworker.js
-          sed -i 's#\(		<script src="index.js"></script>\)#		<script src="coi-serviceworker.js"></script>\n\1#g' index.html
-
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
