@@ -1,7 +1,7 @@
 name: Godot - GitHub Pages Deploy
 
 env:
-  GODOT_VERSION: 3.3.3
+  GODOT_VERSION: 4.2.1
 
 on:
   push:
@@ -12,7 +12,7 @@ jobs:
     name: Web Export
     runs-on: ubuntu-latest
     container:
-      image: barichello/godot-ci:3.3.3
+      image: barichello/godot-ci:4.2.1
 
     steps:
       - name: Checkout
